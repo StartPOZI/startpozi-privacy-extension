@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StartPOZI - Умный поиск</title>
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div>StartPOZI</div>
+            </div>
+            <div class="theme-control">
+                <button id="themeAuto" class="theme-btn active" title="Системная тема">
+                    <i class="fas fa-circle-half-stroke"></i>
+                </button>
+                <button id="themeLight" class="theme-btn" title="Светлая тема">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button id="themeDark" class="theme-btn" title="Тёмная тема">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchInput" placeholder="Поиск в StartPOZI..." autofocus>
+            <div class="search-icon" id="searchButton">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-btn" id="btnImages">
+                <div class="feature-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+                <div class="feature-text">Картинки</div>
+            </div>
+            <div class="feature-btn" id="btnVideos">
+                <div class="feature-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="feature-text">Видео</div>
+            </div>
+            <div class="feature-btn" id="btnMaps">
+                <div class="feature-icon">
+                    <i class="fas fa-map"></i>
+                </div>
+                <div class="feature-text">Карты</div>
+            </div>
+            <div class="feature-btn" id="btnNews">
+                <div class="feature-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="feature-text">Новости</div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <i class="fas fa-ad"></i>
+                    <div>Заблокировано рекламы</div>
+                </div>
+                <div class="stat-value" id="adsCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>Остановлено трекеров</div>
+                </div>
+                <div class="stat-value" id="trackersCount">0</div>
+            </div>
+        </div>
+        
+        <div class="site-info">
+            <div class="site-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="site-details">
+                <div class="site-title">Текущий сайт</div>
+                <div class="site-name" id="currentSite">Определение...</div>
+            </div>
+            <div class="security-badge" id="securityBadge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Проверка</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+                <span>Настройки</span>
+            </div>
+            <div class="version">StartPOZI v3.0 | © 2023</div>
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки StartPOZI</title>
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .settings-section {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .settings-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .setting-info {
+            flex: 1;
+        }
+        
+        .setting-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .setting-info p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .privacy-options {
+            margin-top: 20px;
+        }
+        
+        .privacy-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(66, 133, 244, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .privacy-option:hover {
+            background: rgba(66, 133, 244, 0.2);
+        }
+        
+        .privacy-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .option-label {
+            flex: 1;
+        }
+        
+        .option-label h4 {
+            margin: 0;
+            font-size: 15px;
+        }
+        
+        .option-label p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo" id="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div>Настройки</div>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2><i class="fas fa-shield-alt"></i> Защита и безопасность</h2>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Проверка безопасности сайтов</h3>
+                    <p>Предупреждает об опасных и подозрительных сайтах</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="securityCheckToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Блокировка рекламы</h3>
+                    <p>Блокирует надоедливую рекламу на всех сайтах</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="adBlockToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Блокировка трекеров</h3>
+                    <p>Защищает от отслеживания ваших действий</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="trackerBlockToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h2><i class="fas fa-user-secret"></i> Анонимность и приватность</h2>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Режим инкогнито</h3>
+                    <p>Не сохраняет историю поиска и посещенных страниц</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="incognitoToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-info">
+                    <h3>Безопасный поиск</h3>
+                    <p>Фильтрует нежелательный контент в результатах поиска</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="safeSearchToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="privacy-options">
+                <h3>Уровень анонимности</h3>
+                
+                <div class="privacy-option">
+                    <input type="radio" name="privacyLevel" id="privacyBasic" value="basic" checked>
+                    <div class="option-label">
+                        <h4>Базовая защита</h4>
+                        <p>Блокирует только опасные трекеры, сохраняет функциональность сайтов</p>
+                    </div>
+                </div>
+                
+                <div class="privacy-option">
+                    <input type="radio" name="privacyLevel" id="privacyAdvanced" value="advanced">
+                    <div class="option-label">
+                        <h4>Продвинутая защита</h4>
+                        <p>Блокирует все трекеры и рекламу, может нарушать работу некоторых сайтов</p>
+                    </div>
+                </div>
+                
+                <div class="privacy-option">
+                    <input type="radio" name="privacyLevel" id="privacyMax" value="maximum">
+                    <div class="option-label">
+                        <h4>Максимальная анонимность</h4>
+                        <p>Блокирует все трекеры, рекламу и скрипты, максимальная приватность</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="version">StartPOZI v3.0 | © 2023</div>
+        </div>
+    </div>
+    
+    <script src="settings.js"></script>
+</body>
+</html>
