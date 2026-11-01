@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSP: local scripts only, no remote code; connect-src limits any injected
+         script to approved (or no) endpoints. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self' moz-extension: chrome-extension: https://startpozi.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StartPOZI Privacy Guard — Settings</title>
+    <meta name="author" content="StartPOZI">
+    <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
+    <style>
+    /* Chrome UI: no text selection on panels, lists, buttons and menus. */
+    /* Inputs, textareas and selectable content remain selectable. */
+    body { user-select: none; -webkit-user-select: none; }
+    input, textarea, select, [contenteditable="true"], [contenteditable=""], .selectable,
+    .content {
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    /* Interactive controls inside the content stay non-selectable. */
+    .content button, .content select, .content option, .content .btn,
+    .content input[type="checkbox"], .content input[type="radio"] {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+        /* ===== FULL CSS FROM ORIGINAL ===== */
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body { height: 100%; overflow: hidden; font-family: 'SF Pro Display', -apple-system, sans-serif; }
+
+        /* Base variables for customization */
+        :root {
+            --base-font-size: 14px;
+            --accent-color: #667eea;
+            --accent-secondary: #764ba2;
+            --accent-gradient: linear-gradient(135deg, #667eea, #764ba2);
+            --sidebar-opacity: 0.65;
+            --card-opacity: 0.7;
+            --overlay-opacity: 0.48;
+        }
+
+        /* Dark theme */
+        body.theme-dark {
+            --body-bg-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --overlay-bg: rgba(20,20,30,var(--overlay-opacity, 0.48));
+            --overlay-filter: blur(60px) saturate(180%) brightness(1.7);
+            --sidebar-bg: rgba(28,28,38,var(--sidebar-opacity, 0.65));
+            --sidebar-border: rgba(255,255,255,0.08);
+            --link-color: rgba(255,255,255,0.75);
+            --link-hover-bg: rgba(255,255,255,0.1);
+            --link-hover-color: white;
+            --link-active-bg: rgba(255,255,255,0.18);
+            --link-active-color: white;
+            --card-bg: rgba(40,40,55,var(--card-opacity, 0.4));
+            --card-filter: blur(30px);
+            --card-border: rgba(255,255,255,0.12);
+            --h2-color: white;
+            --btn-bg: rgba(255,255,255,0.12);
+            --btn-border: 1px solid rgba(255,255,255,0.18);
+            --btn-color: white;
+            --btn-hover-bg: rgba(255,255,255,0.22);
+            --input-bg: rgba(0,0,0,0.3);
+            --input-border: 1px solid rgba(255,255,255,0.15);
+            --input-color: white;
+            --placeholder-color: rgba(255,255,255,0.6);
+            --option-bg: #282837;
+            --option-color: white;
+            --history-border: rgba(255,255,255,0.08);
+            --history-hover-bg: rgba(255,255,255,0.05);
+            --title-color: white;
+            --url-color: rgba(255,255,255,0.6);
+            --time-color: rgba(255,255,255,0.5);
+            --empty-color: rgba(255,255,255,0.6);
+            --text-color: white;
+            --secondary-text: rgba(255,255,255,0.6);
+            --svg-stroke: white;
+            --plugin-card-bg: rgba(50,50,65,0.5);
+            --plugin-enabled-bg: rgba(76,175,80,0.15);
+            --plugin-enabled-border: rgba(76,175,80,0.3);
+            --plugin-disabled-bg: rgba(244,67,54,0.15);
+            --plugin-disabled-border: rgba(244,67,54,0.3);
+            --switch-on-bg: #4CAF50;
+            --switch-off-bg: #757575;
+            --switch-thumb: white;
+            --settings-btn-bg: color-mix(in srgb, var(--accent-color) 10%, transparent);
+            --settings-btn-hover: color-mix(in srgb, var(--accent-color) 20%, transparent);
+            --popup-btn-bg: rgba(156,39,176,0.1);
+            --popup-btn-hover: rgba(156,39,176,0.2);
+            --restart-btn-bg: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            --restart-btn-hover: linear-gradient(90deg, #FF5252, #FF7B47);
+        }
+
+        /* Light theme */
+        body.theme-light {
+            --body-bg-image: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            --overlay-bg: rgba(255,255,255,var(--overlay-opacity, 0.48));
+            --overlay-filter: blur(60px) saturate(120%) brightness(1.0);
+            --sidebar-bg: rgba(255,255,255,var(--sidebar-opacity, 0.65));
+            --sidebar-border: rgba(0,0,0,0.08);
+            --link-color: rgba(0,0,0,0.75);
+            --link-hover-bg: rgba(0,0,0,0.1);
+            --link-hover-color: black;
+            --link-active-bg: rgba(0,0,0,0.18);
+            --link-active-color: black;
+            --card-bg: rgba(255,255,255,var(--card-opacity, 0.4));
+            --card-filter: blur(30px);
+            --card-border: rgba(0,0,0,0.12);
+            --h2-color: black;
+            --btn-bg: rgba(0,0,0,0.12);
+            --btn-border: 1px solid rgba(0,0,0,0.18);
+            --btn-color: black;
+            --btn-hover-bg: rgba(0,0,0,0.22);
+            --input-bg: rgba(255,255,255,0.3);
+            --input-border: 1px solid rgba(0,0,0,0.15);
+            --input-color: black;
+            --placeholder-color: rgba(0,0,0,0.6);
+            --option-bg: #f0f0f0;
+            --option-color: black;
+            --history-border: rgba(0,0,0,0.08);
+            --history-hover-bg: rgba(0,0,0,0.05);
+            --title-color: black;
+            --url-color: rgba(0,0,0,0.6);
+            --time-color: rgba(0,0,0,0.5);
+            --empty-color: rgba(0,0,0,0.6);
+            --text-color: black;
+            --secondary-text: rgba(0,0,0,0.6);
+            --svg-stroke: black;
+            --plugin-card-bg: rgba(240,240,245,0.5);
+            --plugin-enabled-bg: rgba(76,175,80,0.1);
+            --plugin-enabled-border: rgba(76,175,80,0.4);
+            --plugin-disabled-bg: rgba(244,67,54,0.1);
+            --plugin-disabled-border: rgba(244,67,54,0.4);
+            --switch-on-bg: #4CAF50;
+            --switch-off-bg: #BDBDBD;
+            --switch-thumb: white;
+            --settings-btn-bg: color-mix(in srgb, var(--accent-color) 10%, transparent);
+            --settings-btn-hover: color-mix(in srgb, var(--accent-color) 20%, transparent);
+            --popup-btn-bg: rgba(156,39,176,0.1);
+            --popup-btn-hover: rgba(156,39,176,0.2);
+            --restart-btn-bg: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            --restart-btn-hover: linear-gradient(90deg, #FF5252, #FF7B47);
+        }
+
+        body {
+            font-size: var(--base-font-size);
+            background: var(--body-bg-image);
+            background-attachment: fixed;
+            position: relative;
+        }
+        /* Start-page wallpaper sync (same mechanism as Library.html): the
+           wallpaper from the start page is shown slightly muted through the
+           overlay, so Settings/Library/MainPage share one visual style. */
+        body.custom-bg { background: var(--custom-bg, var(--body-bg-image)) !important; background-size: var(--custom-bg-size, cover) !important; background-position: var(--custom-bg-pos, center) !important; background-repeat: var(--custom-bg-repeat, no-repeat) !important; background-attachment: var(--custom-bg-attach, fixed) !important; }
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-bg);
+            backdrop-filter: var(--overlay-filter);
+            pointer-events: none;
+            z-index: -1;
+            opacity: var(--overlay-opacity-enabled, 1);
+        }
+        body.no-overlay::before {
+            opacity: 0;
+        }
+
+        .window { width: 100vw; height: 100vh; display: flex; position: relative; z-index: 1; }
+        .sidebar { width: 280px; background: var(--sidebar-bg); backdrop-filter: blur(40px); border-right: 1px solid var(--sidebar-border); padding: 24px 0 16px; display: flex; flex-direction: column; overflow: hidden; }
+        nav { flex: 1 1 0; min-height: 0; overflow-x: hidden; overflow-y: auto; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--sidebar-border) transparent; -webkit-overflow-scrolling: touch; }
+        nav::-webkit-scrollbar { width: 8px; }
+        nav::-webkit-scrollbar-track { background: transparent; margin: 6px 0; border-radius: 4px; }
+        nav::-webkit-scrollbar-thumb { background: var(--sidebar-border); border-radius: 4px; transition: background 0.2s; }
+        nav::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+        nav a { display: flex; align-items: center; padding: 16px 28px; color: var(--link-color); text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s; }
+        nav a:hover { background: var(--link-hover-bg); color: var(--link-hover-color); }
+        nav a.active { background: var(--link-active-bg); color: var(--link-active-color); font-weight: 600; }
+        nav a svg { width: 22px; height: 22px; margin-right: 16px; fill: none; stroke: var(--svg-stroke); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; }
+
+        .content { flex: 1; padding: 24px 60px 60px; overflow-y: auto; }
+
+        /* About page */
+        @keyframes about-logo-spin { from { transform: rotate(0deg); } to { transform: rotate(720deg); } }
+        .about-logo.spinning { animation: about-logo-spin 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+        .about-logo { transition: transform 0.2s ease, filter 0.2s ease; }
+        .about-logo:hover { transform: scale(1.06); filter: brightness(1.08); }
+        .about-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .about-title { font-size: 28px; font-weight: 700; color: var(--h2-color); margin-bottom: 8px; letter-spacing: -0.3px; }
+        .about-version { font-size: 13px; color: var(--secondary-text); line-height: 1.6; }
+        .about-version .badge { display: inline-block; padding: 2px 9px; border-radius: 8px; background: rgba(76,175,80,0.18); color: #4CAF50; font-weight: 600; font-size: 11px; margin-left: 4px; vertical-align: middle; }
+        .about-prose { font-size: 13.5px; color: var(--secondary-text); line-height: 1.8; }
+        .about-prose p { margin-bottom: 14px; }
+        .about-prose p:last-child { margin-bottom: 0; }
+        .about-prose .lead { color: var(--text-color); font-weight: 600; font-size: 15px; }
+        .about-license { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: var(--settings-btn-bg); border: 1px solid var(--card-border); font-size: 12px; color: var(--text-color); font-weight: 500; }
+        .section { display: none; }
+        .section.active { display: block; }
+
+        .card { background: var(--card-bg); backdrop-filter: var(--card-filter); border-radius: 20px; padding: 32px; margin-bottom: 30px; border: 1px solid var(--card-border); }
+        .card h2 { font-size: 26px; font-weight: 600; color: var(--h2-color); margin-bottom: 28px; }
+
+        .buttons-container { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .clear-button, .refresh-button, #change-download-path, #add-script {
+            background: var(--btn-bg);
+            border: var(--btn-border);
+            color: var(--btn-color);
+            padding: 11px 22px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .clear-button:hover, .refresh-button:hover, #change-download-path:hover, #add-script:hover { background: var(--btn-hover-bg); }
+
+        /* Buttons with accent gradient */
+        .btn-accent {
+            background: var(--accent-gradient) !important;
+            background-attachment: fixed !important;
+            color: white !important;
+            border: none !important;
+        }
+        .btn-accent:hover {
+            filter: brightness(1.1) !important;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #00C853, #4CAF50) !important;
+            color: white !important;
+            border: none !important;
+        }
+        .btn-test {
+            background: linear-gradient(135deg, #9C27B0, #673AB7) !important;
+            color: white !important;
+            border: none !important;
+        }
+
+        input[type="text"], select { width: 100%; padding: 14px 20px; background: var(--input-bg); border: var(--input-border); border-radius: 14px; color: var(--input-color); font-size: 15px; outline: none; }
+        input[type="text"]::placeholder { color: var(--placeholder-color); }
+        select option { background: var(--option-bg); color: var(--option-color); }
+
+        .history-item { display: flex; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--history-border); cursor: pointer; transition: background 0.2s; }
+        .history-item:hover { background: var(--history-hover-bg); }
+        .history-item:last-child { border-bottom: none; }
+        .history-item img { width: 16px; height: 16px; border-radius: 4px; margin-right: 16px; }
+        .history-item .info { flex: 1; min-width: 0; }
+        .history-item .title { color: var(--title-color); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .history-item .url { color: var(--url-color); font-size: 13px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .history-item .time { color: var(--time-color); font-size: 13px; margin-left: 20px; }
+
+        .empty-message { color: var(--empty-color); font-size: 17px; text-align: center; padding: 60px 20px; }
+
+        /* Styles for plugins section */
+        .plugins-container { display: grid; gap: 16px; margin-top: 20px; }
+
+        .plugin-card {
+            background: var(--plugin-card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .plugin-card.enabled {
+            border-color: var(--plugin-enabled-border);
+            background: var(--plugin-enabled-bg);
+        }
+
+        .plugin-card.disabled {
+            border-color: var(--plugin-disabled-border);
+            background: var(--plugin-disabled-bg);
+            opacity: 0.7;
+        }
+
+        .plugin-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: rgba(255,255,255,0.1);
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .plugin-icon:hover {
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .plugin-icon.has-popup::after {
+            content: '▶';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #9c27b0;
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plugin-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .plugin-name {
+            color: var(--title-color);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plugin-name .has-popup-badge {
+            background: #9c27b0;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .plugin-description {
+            color: var(--secondary-text);
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .plugin-version {
+            color: var(--url-color);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Toggle */
+        .plugin-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .plugin-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--switch-off-bg);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--switch-thumb);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--switch-on-bg);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .plugin-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-plugin {
+            color: var(--secondary-text);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .remove-plugin:hover {
+            background: rgba(244,67,54,0.15);
+            color: #f44336;
+        }
+
+        .plugin-settings-btn {
+            color: var(--secondary-text);
+            background: var(--settings-btn-bg);
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+        }
+
+        .plugin-settings-btn:hover {
+            background: var(--settings-btn-hover);
+            color: #2196f3;
+        }
+
+        .plugin-popup-btn {
+            color: var(--secondary-text);
+            background: var(--popup-btn-bg);
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+        }
+
+        .plugin-popup-btn:hover {
+            background: var(--popup-btn-hover);
+            color: #9c27b0;
+        }
+
+        .debug-plugin-btn {
+            color: var(--secondary-text);
+            background: rgba(33, 150, 243, 0.1);
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+        }
+
+        .debug-plugin-btn:hover {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        .plugin-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--secondary-text);
+            font-size: 16px;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-container input {
+            padding-right: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-text);
+        }
+
+        /* Styles for notifications */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--card-bg);
+            backdrop-filter: var(--card-filter);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px 24px;
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Styles for system plugins */
+        .system-plugin {
+            opacity: 0.8;
+        }
+
+        .system-plugin .plugin-name::after {
+            content: " (system)";
+            color: var(--secondary-text);
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .settings-group {
+            margin-bottom: 24px;
+        }
+
+        .settings-group label {
+            display: block;
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .settings-group input[type="text"],
+        .settings-group input[type="number"],
+        .settings-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--input-bg);
+            border: var(--input-border);
+            border-radius: 10px;
+            color: var(--input-color);
+            font-size: 14px;
+        }
+
+        .settings-group .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .settings-group .checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .settings-group .checkbox span {
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .settings-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .settings-actions button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .settings-actions .save-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .settings-actions .save-btn:hover {
+            background: #45a049;
+        }
+
+        .settings-actions .cancel-btn {
+            background: var(--btn-bg);
+            color: var(--btn-color);
+            border: var(--btn-border);
+        }
+
+        .settings-actions .cancel-btn:hover {
+            background: var(--btn-hover-bg);
+        }
+
+        /* Restart button */
+        #restart-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--restart-btn-bg);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 99999;
+            box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+            transition: all 0.3s ease;
+        }
+
+        #restart-button:hover {
+            background: var(--restart-btn-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255,107,107,0.4);
+        }
+
+        /* Style for disabled buttons */
+        .plugin-popup-btn:disabled,
+        .plugin-icon:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Restart indicator */
+        .restart-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,107,107,0.2);
+            color: #FF6B6B;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+
+        /* Drag & Drop for customization buttons */
+        .toolbar-draggable-btn {
+            cursor: grab !important;
+        }
+
+        .toolbar-draggable-btn:active {
+            cursor: grabbing !important;
+        }
+
+        .toolbar-draggable-btn.dragging {
+            opacity: 0.5;
+            transform: scale(1.05);
+        }
+
+        /* Container highlight on drag over */
+        #toolbar-preview.drag-over,
+        #available-buttons-pool.drag-over {
+            background: rgba(102, 126, 234, 0.1) !important;
+            border-color: rgba(102, 126, 234, 0.5) !important;
+        }
+
+        /* ===== Permissions section ===== */
+        .perm-site-card {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .perm-site-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 1px var(--accent-color);
+        }
+        .perm-domain {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .perm-delete-btn {
+            background: none;
+            border: 1px solid transparent;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .perm-delete-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+        .perm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+        }
+        .perm-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 4px 0;
+        }
+        .perm-label {
+            font-size: 12px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+        }
+        .perm-select {
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--input-color);
+            font-size: 11px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .perm-select:hover {
+            border-color: var(--accent-color);
+        }
+        .perm-select.perm-allowed {
+            border-color: rgba(46, 204, 113, 0.5);
+            color: #2ecc71;
+        }
+        .perm-select.perm-denied {
+            border-color: rgba(231, 76, 60, 0.5);
+            color: #e74c3c;
+        }
+
+        /* ===== Cookies section ===== */
+        .cookie-domain-card {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .cookie-domain-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 1px var(--accent-color);
+        }
+        .cookie-domain-name {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .cookie-count {
+            font-size: 11px;
+            color: var(--secondary-text);
+            background: var(--btn-bg);
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+        .cookie-delete-btn {
+            background: none;
+            border: 1px solid transparent;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .cookie-delete-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+        .cust-tab-bar {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .cust-tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--btn-bg);
+            color: var(--secondary-text);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cust-tab-btn:hover {
+            background: var(--btn-hover-bg);
+        }
+        .cust-tab-btn.active {
+            background: var(--accent-gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .px-toggle-wrap {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .px-toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .px-toggle-track {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--switch-off-bg, #555);
+            border-radius: 12px;
+            transition: background 0.25s;
+        }
+        .px-toggle-track::before {
+            content: '';
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: var(--switch-thumb, #fff);
+            border-radius: 50%;
+            transition: transform 0.25s;
+        }
+        .px-toggle-wrap input:checked + .px-toggle-track {
+            background: var(--switch-on-bg, #4caf50);
+        }
+        .px-toggle-wrap input:checked + .px-toggle-track::before {
+            transform: translateX(20px);
+        }
+
+        .px-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .px-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .px-field-label {
+            font-size: 11px;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .px-field select,
+        .px-field input[type="text"] {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--input-color);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .px-field select:focus,
+        .px-field input[type="text"]:focus {
+            border-color: var(--accent-color);
+        }
+        .px-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .px-btn-reset {
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--btn-color);
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .px-btn-reset:hover { background: var(--btn-hover-bg); }
+        .px-btn-apply {
+            padding: 10px 26px;
+            border-radius: 10px;
+            border: none;
+            background: var(--accent-gradient);
+            color: #fff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: filter 0.2s;
+        }
+        .px-btn-apply:hover { filter: brightness(1.1); }
+
+        .px-tor-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            margin-top: 12px;
+        }
+        .px-tor-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 12px;
+        }
+        .px-tor-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .px-tor-actions button,
+        .px-tor-btn-secondary,
+        .px-tor-btn-primary,
+        .px-tor-btn-danger {
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--btn-color);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: background 0.2s, border-color 0.2s, filter 0.2s, transform 0.1s;
+        }
+        .px-tor-actions button:hover,
+        .px-tor-btn-secondary:hover {
+            background: var(--btn-hover-bg);
+            border-color: var(--accent-color);
+        }
+        .px-tor-actions button:active,
+        .px-tor-btn-secondary:active {
+            transform: scale(0.97);
+        }
+        .px-tor-btn-primary {
+            border: none;
+            background: linear-gradient(135deg, #7e4798, #9c5cb8);
+            color: #fff;
+            font-weight: 600;
+        }
+        .px-tor-btn-primary:hover {
+            filter: brightness(1.12);
+        }
+        .px-tor-btn-danger {
+            border: 1px solid #ef5350;
+            background: rgba(239,83,80,0.1);
+            color: #ef5350;
+            font-weight: 600;
+        }
+        .px-tor-btn-danger:hover {
+            background: rgba(239,83,80,0.2);
+        }
+        .px-tor-status {
+            font-size: 12px;
+            color: var(--secondary-text);
+            min-height: 16px;
+        }
+        .px-tor-status.ok { color: #4caf50; }
+        .px-tor-status.error { color: #ef5350; }
+        .px-tor-status.warn { color: #ff9800; }
+
+        .px-tor-help {
+            background: var(--btn-hover-bg, rgba(126,71,152,0.08));
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            line-height: 1.55;
+            color: var(--secondary-text);
+        }
+        .px-tor-help b { color: var(--text-color); }
+        .px-tor-help a { color: #7e4798; text-decoration: none; }
+        .px-tor-help a:hover { text-decoration: underline; }
+        .px-tor-help code {
+            background: rgba(0,0,0,0.15);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+        .px-tor-help ul { margin: 6px 0 0 0; padding-left: 18px; }
+        .px-tor-help li { margin-bottom: 3px; }
+        .px-bootstrap-bar {
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 8px 0;
+            display: none;
+        }
+        .px-bootstrap-bar.active { display: block; }
+        .px-bootstrap-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7e4798, #b066cc);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .px-tor-newid {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: 1px solid #7e4798;
+            background: rgba(126,71,152,0.12);
+            color: #7e4798;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+            display: none;
+        }
+        .px-tor-newid:hover { background: rgba(126,71,152,0.25); }
+        .px-tor-newid.active { display: inline-block; }
+
+        /* Connection diagnostics */
+        .px-diag-card { margin-top: 20px; padding: 20px; border-radius: 16px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.04); }
+        body.theme-dark .px-diag-card { background: rgba(0,0,0,0.18); }
+        .px-diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 14px; }
+        .px-diag-cell { padding: 12px 14px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--card-border); }
+        .px-diag-label { font-size: 11px; color: var(--secondary-text); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+        .px-diag-value { font-size: 14px; font-weight: 600; color: var(--text-color); word-break: break-word; }
+        .px-diag-value.dim { color: var(--secondary-text); font-weight: 400; }
+        .px-mode-badge { display: inline-flex; align-items: center; gap: 7px; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+        .px-mode-badge.direct { background: rgba(120,120,120,0.18); color: var(--secondary-text); }
+        .px-mode-badge.proxy { background: rgba(102,126,234,0.2); color: #667eea; }
+        .px-mode-badge.tor { background: rgba(126,71,152,0.22); color: #9c4eb8; }
+        .px-mode-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+        .px-mode-dot.live { box-shadow: 0 0 0 0 currentColor; animation: px-pulse 1.6s infinite; }
+        @keyframes px-pulse { 0% { box-shadow: 0 0 0 0 currentColor; } 70% { box-shadow: 0 0 0 6px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+        .px-flag { font-size: 20px; vertical-align: middle; margin-right: 4px; }
+        .px-spin-btn { display: inline-flex; align-items: center; gap: 8px; }
+
+        @media (max-width: 720px) {
+            .px-domains-grid { grid-template-columns: 1fr !important; }
+        }
+
+        .px-field textarea {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--input-color);
+            font-size: 12px;
+            font-family: monospace;
+            resize: vertical;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .px-field textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .cookie-favicon {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .tab-layout-opt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 12px;
+            border-radius: 12px;
+            border: 2px solid var(--card-border);
+            background: var(--input-bg);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .tab-layout-opt:hover {
+            border-color: var(--accent-color);
+        }
+        .tab-layout-opt.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 1px var(--accent-color);
+            background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--btn-bg);
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 2px solid var(--card-bg);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Shared modal styling (also used by the toolbar-customization modal).
+           The password manager that originally defined these now lives in
+           Library.html, but Settings still needs the layout classes. */
+        .password-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .password-modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            width: 500px;
+            max-width: 90vw;
+            border: 1px solid var(--card-border);
+        }
+        .password-modal-content h3 {
+            color: var(--text-color);
+            font-size: 22px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body class="theme-dark">
+
+    <div class="window">
+<div class="sidebar">
+            <div id="settingsSearchBox" style="position:sticky;top:0;z-index:6;padding:10px 12px 8px;background:inherit;">
+                <input id="settingsSearchInput" type="text" autocomplete="off" spellcheck="false" data-ru-ph="Поиск настроек…" data-en-ph="Search settings…" placeholder="Search settings…" style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--border-color,#333);border-radius:8px;background:var(--input-bg,rgba(255,255,255,0.05));color:var(--text-color,#eee);font-size:13px;outline:none;">
+                <div id="settingsSearchResults" style="display:none;max-height:340px;overflow:auto;margin-top:6px;border:1px solid var(--border-color,#333);border-radius:8px;background:var(--card-bg,#1c1c26);box-shadow:0 8px 24px rgba(0,0,0,0.35);"></div>
+            </div>
+            <nav>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <a href="#blocker" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    Blocker
+                </a>
+                <a href="#security">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Security
+                </a>
+                
+                
+                
+                
+                
+                
+                <a href="#about">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    About StartPOZI Guard
+                </a>
+            </nav>
+        </div>
+
+        
+        <div class="content">
+            <div id="blocker" class="section active">
+                <div class="card">
+                    <h2>Ad blocker</h2>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+                        <div>
+                            <div style="font-size:15px;font-weight:500;color:var(--text-color);">Block ads and trackers</div>
+                            <div style="font-size:12px;color:var(--secondary-text);margin-top:2px;" id="abStatusText">Enabled</div>
+                        </div>
+                        <label class="px-toggle-wrap">
+                            <input type="checkbox" id="abSettingsToggle" checked>
+                            <span class="px-toggle-track"></span>
+                        </label>
+                    </div>
+
+                    <h3 style="font-size:14px;font-weight:500;margin:20px 0 10px;color:var(--text-color);">Custom filters</h3>
+                    <p style="color:var(--secondary-text);font-size:12px;margin-bottom:8px;">Rules in EasyList format: <code>||domain.com^</code>, <code>##.selector</code>, <code>domain.com##.ad</code></p>
+                    <textarea id="abCustomFilters" placeholder="||example-ads.com^&#10;##.ad-banner&#10;example.com##.sponsor-block" style="width:100%;min-height:100px;background:var(--card-bg);color:var(--text-color);border:1px solid var(--border-color);border-radius:8px;padding:10px;font-size:12px;font-family:monospace;resize:vertical;margin-bottom:8px;"></textarea>
+                    <div style="display:flex;gap:8px;margin-bottom:20px;">
+                        <button id="abSaveFilters" class="refresh-button" style="font-size:12px;padding:6px 14px;">Save filters</button>
+                    </div>
+
+                    <h3 style="font-size:14px;font-weight:500;margin:20px 0 10px;color:var(--text-color);">FilterHub lists</h3>
+                    <p style="color:var(--secondary-text);font-size:12px;margin-bottom:10px;">Blocklist catalog from the <a href="#" id="fhRepoLink" style="color:var(--accent-color);">FilterHub</a> repository. Not all lists are enabled by default: the recommended Medium set is on.</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+                        <button id="fhPresetLight" class="refresh-button" style="font-size:12px;padding:6px 14px;">Light (fast)</button>
+                        <button id="fhPresetMedium" class="refresh-button" style="font-size:12px;padding:6px 14px;">Medium (recommended)</button>
+                        <button id="fhPresetFull" class="refresh-button" style="font-size:12px;padding:6px 14px;">Maximum (all lists)</button>
+                    </div>
+                    <div id="fhStatus" style="font-size:12px;color:var(--secondary-text);min-height:16px;margin-bottom:10px;"></div>
+                    <div id="fhCatalog" style="margin-bottom:12px;"></div>
+                    <details style="margin-bottom:20px;border:1px solid var(--border-color);border-radius:8px;padding:10px 12px;">
+                        <summary style="font-size:13px;font-weight:500;color:var(--text-color);cursor:pointer;">FilterHub help</summary>
+                        <div style="font-size:12px;color:var(--secondary-text);line-height:1.6;margin-top:10px;">
+                            <p style="margin:0 0 8px;"><strong style="color:var(--text-color);">What is FilterHub?</strong><br>FilterHub is a centralized blocklist repository: 44 lists from trusted sources (EasyList, AdGuard, uBlock Origin, HaGezi, Phishing Army, Fanboy, DuckDuckGo and others), about 3.4 million rules in total.</p>
+                            <p style="margin:0 0 8px;"><strong style="color:var(--text-color);">Protection levels</strong><br>Light — 7 lists, ~261K rules, fastest. Medium — 17 lists, ~718K rules, the recommended balance of protection and speed. Maximum — all 44 lists, ~3.9M rules, for powerful PCs only.</p>
+                            <p style="margin:0 0 8px;"><strong style="color:var(--text-color);">Can I enable everything at once?</strong><br>It is not recommended: lists overlap, and the big ones (HaGezi TIF — 43 MB, DuckDuckGo US Maximum — 30 MB) slow the browser down. Pick one main ad list, one privacy list, then extras as needed.</p>
+                            <p style="margin:0 0 8px;"><strong style="color:var(--text-color);">Warnings</strong><br>Google Ultra Strict may break reCAPTCHA and Google fonts. OISD Full and HaGezi Pro Plus are heavy. Lists marked with a warning badge deserve caution.</p>
+                            <p style="margin:0 0 8px;"><strong style="color:var(--text-color);">Categories</strong><br>Ad blocking — main ad filters. Privacy — trackers and data collection. Security — phishing, malware, coin-mining. Annoyances — cookie banners, popups, widgets. Regional — language-specific lists. Pro — maximum-strength lists.</p>
+                            <p style="margin:0;"><strong style="color:var(--text-color);">License</strong><br>FilterHub is distributed under Apache License 2.0; individual lists keep their upstream licenses. Full documentation: <span id="fhDocLink" style="color:var(--accent-color);cursor:pointer;text-decoration:underline;">FilterHub/Doc on GitHub</span>.</p>
+                        </div>
+                    </details>
+
+                    <h3 style="font-size:14px;font-weight:500;margin:20px 0 10px;color:var(--text-color);">Custom filter lists</h3>
+                    <p style="color:var(--secondary-text);font-size:12px;margin-bottom:8px;">Extra filter list URLs (EasyList format) in addition to the FilterHub catalog</p>
+                    <div id="abFilterLists" style="margin-bottom:8px;"></div>
+                    <div style="display:flex;gap:8px;margin-bottom:8px;">
+                        <input type="text" id="abNewListUrl" placeholder="https://example.com/filter-list.txt" style="flex:1;background:var(--card-bg);color:var(--text-color);border:1px solid var(--border-color);border-radius:8px;padding:8px 10px;font-size:12px;">
+                        <button id="abAddList" class="refresh-button" style="font-size:12px;padding:6px 14px;">Add</button>
+                    </div>
+                    <button id="abUpdateLists" class="refresh-button" style="font-size:12px;padding:6px 14px;margin-bottom:20px;">Update all lists</button>
+
+                    <h3 style="font-size:14px;font-weight:500;margin:20px 0 10px;color:var(--text-color);">Custom hide styles</h3>
+                    <p style="color:var(--secondary-text);font-size:12px;margin-bottom:8px;">CSS rules to hide elements on sites. Format: <code>domain { CSS }</code> or <code>{ CSS }</code> for all sites</p>
+                    <textarea id="abCustomStyles" placeholder="youtube.com { .ytd-rich-section-renderer { display: none !important; } }&#10;* { .cookie-banner { display: none !important; } }" style="width:100%;min-height:80px;background:var(--card-bg);color:var(--text-color);border:1px solid var(--border-color);border-radius:8px;padding:10px;font-size:12px;font-family:monospace;resize:vertical;margin-bottom:8px;"></textarea>
+                    <div style="display:flex;gap:8px;margin-bottom:20px;">
+                        <button id="abSaveStyles" class="refresh-button" style="font-size:12px;padding:6px 14px;">Save styles</button>
+                    </div>
+
+                    <h3 style="font-size:14px;font-weight:500;margin:20px 0 10px;color:var(--text-color);">Blocked log</h3>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Keep log on disk</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Off by default: the log lives in memory only and is wiped on exit</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="abPersistLog"><span class="px-toggle-track"></span></label>
+                    </div>
+                    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center;">
+                        <input type="text" id="abLogSearch" placeholder="Filter by URL or domain..." style="flex:1;background:var(--card-bg);color:var(--text-color);border:1px solid var(--border-color);border-radius:8px;padding:8px 10px;font-size:12px;">
+                        <button id="abClearLog" class="refresh-button" style="font-size:12px;padding:6px 14px;">Clear</button>
+                    </div>
+                    <div id="abLogList" style="max-height:300px;overflow-y:auto;border:1px solid var(--border-color);border-radius:8px;padding:4px;"></div>
+                    <div style="font-size:11px;color:var(--secondary-text);margin-top:6px;" id="abLogCount">0 entries</div>
+                </div>
+
+                <div class="card" style="margin-top:16px;">
+                    <h2>SponsorBlock</h2>
+                    <p style="color:var(--secondary-text);font-size:14px;margin-bottom:16px;line-height:1.5;">
+                        Automatically skip sponsor segments in YouTube videos.
+                        <a href="https://sponsor.ajay.app" style="color:var(--accent-color);">SponsorBlock</a>.
+                    </p>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                        <div>
+                            <div style="font-size:15px;font-weight:500;color:var(--text-color);">Skip segments</div>
+                            <div style="font-size:12px;color:var(--secondary-text);margin-top:2px;" id="sbStatusText">Disabled</div>
+                        </div>
+                        <label class="px-toggle-wrap">
+                            <input type="checkbox" id="sbToggle">
+                            <span class="px-toggle-track"></span>
+                        </label>
+                    </div>
+                    <div id="sb-stats" style="display:none;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div style="display:flex;gap:20px;">
+                            <div><div style="font-size:18px;font-weight:600;color:var(--accent-color);" id="sbStatSegments">0</div><div style="font-size:11px;color:var(--secondary-text);">Segments skipped</div></div>
+                            <div><div style="font-size:18px;font-weight:600;color:var(--accent-color);" id="sbStatTime">0s</div><div style="font-size:11px;color:var(--secondary-text);">Time saved</div></div>
+                        </div>
+                    </div>
+                    <div id="sb-categories" style="display:none;">
+                        <h3 style="font-size:14px;font-weight:500;margin-bottom:12px;color:var(--text-color);">Segment categories</h3>
+                        <div id="sbCatList"></div>
+                    </div>
+                </div>
+            </div>
+<div id="security" class="section">
+                <div class="card">
+                    <h2>Privacy panel</h2>
+                    <p style="color:var(--secondary-text);font-size:14px;margin-bottom:16px;">Overview of your protection in real time.</p>
+                    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
+                        <div style="flex:1;min-width:140px;padding:16px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:12px;text-align:center;">
+                            <div style="font-size:28px;font-weight:700;color:var(--accent-color);" id="privBlockedCount">0</div>
+                            <div style="font-size:12px;color:var(--secondary-text);margin-top:4px;">Requests blocked</div>
+                        </div>
+                        <div style="flex:1;min-width:140px;padding:16px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:12px;text-align:center;">
+                            <div style="font-size:28px;font-weight:700;color:var(--accent-color);" id="privCookiesCount">0</div>
+                            <div style="font-size:12px;color:var(--secondary-text);margin-top:4px;">Cookie files</div>
+                        </div>
+                        <div style="flex:1;min-width:140px;padding:16px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:12px;text-align:center;">
+                            <div style="font-size:28px;font-weight:700;color:var(--accent-color);" id="privSecurityScore">—</div>
+                            <div style="font-size:12px;color:var(--secondary-text);margin-top:4px;">Protection level</div>
+                        </div>
+                    </div>
+                    <div id="privAdblockBreakdown" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+                        <div style="flex:1;min-width:110px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:10px;text-align:center;">
+                            <div style="font-size:20px;font-weight:700;color:var(--accent-color);" id="privCatAds">0</div>
+                            <div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Ads</div>
+                        </div>
+                        <div style="flex:1;min-width:110px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:10px;text-align:center;">
+                            <div style="font-size:20px;font-weight:700;color:var(--accent-color);" id="privCatTrackers">0</div>
+                            <div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Trackers</div>
+                        </div>
+                        <div style="flex:1;min-width:110px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:10px;text-align:center;">
+                            <div style="font-size:20px;font-weight:700;color:var(--accent-color);" id="privCatSocial">0</div>
+                            <div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Social networks</div>
+                        </div>
+                        <div style="flex:1;min-width:110px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:10px;text-align:center;">
+                            <div style="font-size:20px;font-weight:700;color:var(--accent-color);" id="privCatCdn">0</div>
+                            <div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">CDN</div>
+                        </div>
+                        <div style="flex:1;min-width:110px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:10px;text-align:center;">
+                            <div style="font-size:20px;font-weight:700;color:var(--accent-color);" id="privCatOther">0</div>
+                            <div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Other</div>
+                        </div>
+                        <div style="flex:1;min-width:110px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:10px;text-align:center;">
+                            <div style="font-size:20px;font-weight:700;color:var(--accent-color);" id="privCatTotal">0</div>
+                            <div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Blocked this session</div>
+                        </div>
+                    </div>
+                    <div id="privRecommendations" style="padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div style="font-size:13px;font-weight:500;color:var(--text-color);margin-bottom:8px;">Recommendations</div>
+                        <div id="privRecList" style="font-size:12px;color:var(--secondary-text);"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:16px;">
+                    <h2>Security</h2>
+                    <p style="color:var(--secondary-text);font-size:14px;margin-bottom:20px;line-height:1.5;">Privacy and security protection settings while browsing sites.</p>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Clean tracking URLs</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Remove tracking parameters (utm_*, fbclid, gclid, etc.) and unwrap redirect links</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secUrlClean"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Sanitize URL</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Warnings about punycode domains (phishing) and credentials in URLs</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secSanitizeUrl"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">WebRTC IP leak protection</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Blocks WebRTC leaks (disabled if the site is granted geolocation permission)</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secWebRTC"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Fingerprinting protection</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Adds noise to Canvas, spoofs navigator.userAgent and platform</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secFingerprint"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Audio fingerprint protection</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Adds inaudible micro-noise to Web Audio data reads (silent tones used for tracking, e.g. on AliExpress). Does not affect playback</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secAudioFp"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Fingerprint shield</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Always-on value noise: Canvas, CPU/RAM values, Battery API, sendBeacon, media devices, screen depth, local font list. Does not change your User-Agent</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secFpShield"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Spectre side-channel protection</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Coarsens timer precision (performance.now to 1 ms) and disables SharedArrayBuffer — the toolkit for timing side-channel attacks</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secSpectreShield"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">DNS rebinding protection</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Blocks sites that resolve to local/private addresses — attacks on your router and home devices. Paused while a proxy/Tor is active</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockDnsRebinding"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Ask for local network access</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Sites must ask before their scripts contact devices on your local network (router, IoT). Local pages are unaffected</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secAskLanAccess"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Cross-origin isolation (COOP/COEP)</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Opt-in: enables SharedArrayBuffer for sites that need it (multithreaded WASM) via cross-origin isolation. May break cross-origin images on some sites</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secCoopCoep"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">localStorage quota (5 MB per site)</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Cap per-site localStorage — stops quota-filling trackers and storage bloat</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secLsQuota"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Confirm every download</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Ask before saving a file — protects against hidden drive-by downloads</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secConfirmDownloads"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block media autoplay</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Video and audio start only on click</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secAutoplay"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Site isolation</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Separate cookie and localStorage storage for each domain</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secSiteIsolation"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">HTTPS only</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Automatically redirect HTTP to HTTPS</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secHttpsOnly"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Clear cookies on exit</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Delete all cookies (incl. container tabs) when the browser closes</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secClearCookiesOnExit"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Clear cache on exit</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Wipe the HTTP cache when the browser closes — kills ETag and cache-based cross-session tracking</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secClearCacheOnExit"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <h3 style="font-size:13px;font-weight:500;margin:20px 0 8px;color:var(--text-color);">External services</h3>
+                    <p style="color:var(--secondary-text);font-size:11px;margin-bottom:10px;">Third-party endpoints the browser may contact. Turn off anything you do not want to be contacted.</p>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:10px 12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:13px;font-weight:500;color:var(--text-color);">Search suggestions</div><div style="font-size:11px;color:var(--secondary-text);">suggestqueries.google.com, suggest.yandex.com, duckduckgo.com</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secSuggestEnabled"><span class="px-toggle-track"></span></label>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:10px 12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:13px;font-weight:500;color:var(--text-color);">Translator</div><div style="font-size:11px;color:var(--secondary-text);">translate.googleapis.com (hover-translate, :ru/:en)</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secTranslateEnabled"><span class="px-toggle-track"></span></label>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:10px 12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:13px;font-weight:500;color:var(--text-color);">Password breach check</div><div style="font-size:11px;color:var(--secondary-text);">api.pwnedpasswords.com (k-anonymity, no password leaves the device)</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secHibpEnabled"><span class="px-toggle-track"></span></label>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:10px 12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:13px;font-weight:500;color:var(--text-color);">DRM (Widevine)</div><div style="font-size:11px;color:var(--secondary-text);">Encrypted media playback (Netflix, Spotify). Turning it off applies to new tabs immediately</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secDrmEnabled"><span class="px-toggle-track"></span></label>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:10px 12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:13px;font-weight:500;color:var(--text-color);">Connection diagnostics</div><div style="font-size:11px;color:var(--secondary-text);">check.torproject.org, ipapi.co, ipinfo.io, speed.cloudflare.com (proxy test)</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secDiagnosticsEnabled"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Do Not Track</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Send the DNT signal to websites</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secDnt"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Tell websites not to sell or share my data</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Global Privacy Control (GPC): sends the Sec-GPC: 1 header and navigator.globalPrivacyControl. A request signal, not a blocker — some sites may ignore it.</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secGpc"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Referrer policy</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Send only the origin (without the full path) when navigating between sites</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secReferrerPolicy"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block 3rd-party cookies</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Block third-party cookies to protect against tracking</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockThirdPartyCookies"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block mixed content</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Block HTTP resources on HTTPS pages (mixed content)</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockMixedContent"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block notifications</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Automatically reject site requests to send notifications</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockNotifications"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block geolocation</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Deny sites access to your location</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockGeolocation"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block WebGL fingerprint</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Spoof GPU and graphics card info to protect against tracking</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockWebGL"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Block Clipboard API <span style="font-size:11px;color:#ff9800;font-weight:400;">blocks copying text on the page</span></div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Deny sites reading and writing the clipboard</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secBlockClipboard"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Letterboxing</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Round window dimensions to reduce fingerprinting via screen size</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secLetterboxing"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Auto-decline cookie banners</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Automatically click "Reject / Decline / Reject all" on cookie consent dialogs and hide them</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secAutoRejectCookies"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Super Drag</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Drag selected text to search it in a background tab, drag a link to open it in background, drag an image for reverse image search</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secSuperDrag"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Fake media responses</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">Sites asking for camera/mic get a synthetic black-noise video and white-noise audio instead of a denial — they cannot tell the difference</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secFakeMedia"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:12px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;">
+                        <div><div style="font-size:14px;font-weight:500;color:var(--text-color);">Per-page notes</div><div style="font-size:11px;color:var(--secondary-text);margin-top:2px;">A note icon in the address bar — attach thoughts to any page, they persist per URL</div></div>
+                        <label class="px-toggle-wrap"><input type="checkbox" id="secPageNotes"><span class="px-toggle-track"></span></label>
+                    </div>
+
+                    </div>
+                </div>
+<div id="about" class="section">
+                <div class="card">
+                    <h2>About StartPOZI Guard</h2>
+
+                    <div class="about-row" style="margin-bottom:28px;">
+                        <img class="about-logo" id="aboutLogo" src="../icons/icon128.png" alt="StartPOZI" title="Psst… click me!" style="width:96px;height:96px;border-radius:22px;cursor:pointer;user-select:none;-webkit-user-drag:none;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+                        <div style="flex:1;min-width:220px;">
+                            <div class="about-title">StartPOZI Browser</div>
+                            <div class="about-version">
+                                Version: <span id="aboutVersionNum">…</span> <span class="badge">stable</span><br>
+                                <span id="aboutBuildLine">Official build</span><br>
+                                <span id="aboutDrmStatus" style="color:var(--secondary-text);">DRM (Widevine): checking…</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+                <div class="card">
+                    <div class="about-prose">
+                        <p class="lead">© 2026 StartPOZI. All rights reserved.</p>
+                        <p>StartPOZI was built from scratch as an independent web browser focused on maximum privacy and transparency. Only free, open-source components and libraries were used during development, which lets us fully control every aspect of how the program works.</p>
+                        <p>The browser is distributed under the <span class="about-license">GNU General Public License v3.0</span> — you are free to use, modify and redistribute its code as long as you comply with the license terms.</p>
+                        <p>StartPOZI is the most private browser. No telemetry, no hidden trackers, no data transfers without your knowledge. Your history stays with you, and every default setting is tuned to protect you from surveillance. We keep no logs, collect no statistics and share no data with third parties.</p>
+            </div>
+        </div>
+
+                <div class="card">
+                    <h2 id="aboutLinksTitle" data-ru="Полезные ссылки" data-en="Useful links">Useful links</h2>
+                    <div id="aboutLinks" style="display:flex;flex-direction:column;gap:10px;">
+                        <a class="about-link" href="https://startpoziblog.wordpress.com/feedback/" target="_blank" rel="noreferrer" data-ru="Обратная связь" data-en="Feedback" style="color:var(--accent-color,#1da1f2);text-decoration:none;font-size:14px;">Feedback</a>
+                        <a class="about-link" href="https://github.com/StartPOZI/startpozi-privacy-extension/issues" target="_blank" rel="noreferrer" data-ru="Поломки и баги" data-en="Report a bug" style="color:var(--accent-color,#1da1f2);text-decoration:none;font-size:14px;">Report a bug</a>
+                        <a class="about-link" href="https://startpozi.com/privacy" target="_blank" rel="noreferrer" data-ru="Политика конфиденциальности" data-en="Privacy Policy" style="color:var(--accent-color,#1da1f2);text-decoration:none;font-size:14px;">Privacy Policy</a>
+                        <a class="about-link" href="https://startpozi.com/terms" target="_blank" rel="noreferrer" data-ru="Условия использования" data-en="Terms of Use" style="color:var(--accent-color,#1da1f2);text-decoration:none;font-size:14px;">Terms of Use</a>
+                        <a class="about-link" href="https://startpozi.com/about" target="_blank" rel="noreferrer" data-ru="О StartPOZI" data-en="About StartPOZI" style="color:var(--accent-color,#1da1f2);text-decoration:none;font-size:14px;">About StartPOZI</a>
+                        <a class="about-link" href="https://startpozi.com/apps" target="_blank" rel="noreferrer" data-ru="Для других устройств" data-en="For other devices" style="color:var(--accent-color,#1da1f2);text-decoration:none;font-size:14px;">For other devices</a>
+                    </div>
+                </div>
+    </div>
+
+
+    <!-- Restart button (hidden by default) -->
+        </div>
+    </div>
+
+    <!-- Toast notification (from the browser Settings) -->
+    <div id="toast" class="toast"></div>
+
+<script src="i18n-ext.js"></script>
+<script src="options-inline.js"></script>
+</body>
+</html>

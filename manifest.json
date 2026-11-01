@@ -1,0 +1,72 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "short_name": "StartPOZI",
+  "version": "1.0.0",
+  "default_locale": "en",
+  "description": "__MSG_extDescription__",
+  "author": "StartPOZI <startpozi@internet.ru>",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "guard@startpozi.com",
+      "strict_min_version": "128.0"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "__MSG_extName__",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_popup": "ui/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "core/catalog.js",
+      "core/url-cleaner.js",
+      "core/md5.js",
+      "core/checksum.js",
+      "core/engine.js",
+      "background/settings.js",
+      "background/lists.js",
+      "background/dnr.js",
+      "background/webreq.js",
+      "background/background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "ui/options.html",
+    "open_in_tab": true
+  },
+  "permissions": [
+    "scripting",
+    "storage",
+    "tabs",
+    "cookies",
+    "browsingData",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "alarms",
+    "unlimitedStorage"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "chrome_settings_overrides": {
+    "search_provider": {
+      "name": "StartPOZI",
+      "keyword": "spz",
+      "search_url": "https://startpozi.com/search.html?q={searchTerms}",
+      "favicon_url": "icons/icon32.png",
+      "is_default": true,
+      "encoding": "UTF-8"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ad blocker</title>
+  <!-- СТИЛЬ БРАУЗЕРА ДОСЛОВНО: правила .adblock-panel / .ab-* из style.css
+       StartPOZI Browser + те же CSS-переменные :root (тёмная тема) -->
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Adblock Panel — РАЗМЕТКА ДОСЛОВНО из StartPOZI Browser index.html
+       (#adblockPanel). Не переименовывать id/классы: они 1:1 с браузером. -->
+  <div class="adblock-panel open" id="adblockPanel">
+    <div class="ab-panel-header">
+      <div class="ab-panel-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Ad blocker
+      </div>
+      <label class="ab-toggle"><input type="checkbox" id="abToggle" checked><span class="ab-slider"></span></label>
+    </div>
+    <div class="ab-status" id="abStatusStrip">
+      <span class="ab-status-dot"></span>
+      <span class="ab-status-text" id="abStatusText">Enabled</span>
+    </div>
+
+    <div class="ab-engine-row" id="abEngineRow" style="display:none">
+      <span class="ab-engine-info" id="abEngineInfo"></span>
+      <button class="ab-engine-reload" id="abReloadLists" title="Reload filter lists">↻</button>
+    </div>
+
+    <div class="ab-section-label">This page</div>
+    <div class="ab-page-row">
+      <div class="ab-page-domain" id="abSiteName">—</div>
+      <div class="ab-page-count"><span class="ab-page-num" id="abPageBlocked">0</span><span class="ab-page-sub">blocked here</span></div>
+    </div>
+    <button class="ab-site-toggle" id="abSiteToggle">Disable for this site</button>
+
+    <div class="ab-section-label">This session</div>
+    <div class="ab-panel-stats" id="abPanelStats">
+      <div class="ab-stat"><span class="ab-stat-num" id="abBlocked">0</span><span class="ab-stat-label">Ads</span></div>
+      <div class="ab-stat"><span class="ab-stat-num" id="abTrackers">0</span><span class="ab-stat-label">Trackers</span></div>
+      <div class="ab-stat"><span class="ab-stat-num" id="abTotal">0</span><span class="ab-stat-label">Total</span></div>
+    </div>
+
+    <button class="ab-fullstats-toggle" id="abFullStatsToggle" title="Full statistics">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="9" y1="7" x2="9" y2="17"/><line x1="15" y1="7" x2="15" y2="17"/></svg>
+      <span class="ab-fullstats-toggle-label">Full statistics</span>
+      <svg class="ab-fullstats-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="ab-fullstats" id="abFullStats" style="display:none">
+      <div class="ab-fullstats-row"><span>Ads</span><b id="abFsAds">0</b></div>
+      <div class="ab-fullstats-row"><span>Trackers</span><b id="abFsTrackers">0</b></div>
+      <div class="ab-fullstats-row"><span>Social networks</span><b id="abFsSocial">0</b></div>
+      <div class="ab-fullstats-row"><span>CDN</span><b id="abFsCdn">0</b></div>
+      <div class="ab-fullstats-row"><span>Other</span><b id="abFsOther">0</b></div>
+      <div class="ab-fullstats-row ab-fullstats-cookies"><span>Cookies stored (this site)</span><b id="abFsCookies">0</b></div>
+    </div>
+
+    <div class="ab-panel-actions">
+      <button class="ab-action-btn" id="abBlockManually" title="Block ads manually">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        Block ads manually
+      </button>
+      <button class="ab-action-btn" id="abReportIssue" title="Report a problem">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Report a problem
+      </button>
+      <button class="ab-action-btn" id="abCheckSite" title="Check this site">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        Check this site
+      </button>
+    </div>
+
+    <button class="ab-panel-settings" id="abPanelSettings">Open in settings</button>
+  </div>
+
+  <script src="i18n-ext.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StartPOZI Privacy Guard</title>
+  <link rel="icon" type="image/x-icon" href="../icons/favicon.ico">
+  <style>
+    /* Токены браузера (style.css StartPOZI Browser, тёмная тема) */
+    :root {
+      --primary-color: #1da1f2;
+      --bg-color: #202020;
+      --bg-secondary: #2d2d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #aaaaaa;
+      --border-color: #3d3d3d;
+      --hover-bg: rgba(255, 255, 255, 0.08);
+      --panel-bg: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    body.has-wallpaper {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .card {
+      width: 560px;
+      max-width: calc(100vw - 32px);
+      padding: 44px 48px 38px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      background: var(--panel-bg);
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    .shield {
+      width: 84px; height: 84px;
+      margin: 0 auto 18px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text-primary);
+    }
+    .name { color: var(--primary-color); }
+    .subtitle {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      margin: 0 0 6px;
+      line-height: 1.5;
+    }
+    .ok-line {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12.5px; font-weight: 600;
+      color: #28ca42;
+      background: rgba(40, 202, 66, 0.1);
+      border: 1px solid rgba(40, 202, 66, 0.25);
+      border-radius: 20px;
+      padding: 6px 14px;
+      margin: 10px 0 22px;
+    }
+    .ok-line .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: currentColor; box-shadow: 0 0 6px currentColor;
+    }
+    .features {
+      text-align: left;
+      margin: 0 auto 26px;
+      max-width: 420px;
+    }
+    .features div {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 9px 12px;
+      margin-bottom: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+    .features b { color: var(--text-primary); font-weight: 600; }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-accent {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      box-shadow: 0 6px 24px rgba(102, 126, 234, 0.35);
+    }
+    .btn-accent:hover { box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover { background: var(--hover-bg); color: var(--text-primary); }
+    .footer {
+      margin-top: 26px;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    .footer a { color: var(--text-secondary); text-decoration: none; }
+    .footer a:hover { color: var(--text-primary); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="shield">
+      <img src="../icons/antivirus_internet_lock_locked_protect_security_shield_icon_127108.svg" width="54" height="54" alt="StartPOZI">
+    </div>
+
+    <h1 data-i18n="Thank you for downloading">Thank you for downloading!</h1>
+    <div class="subtitle"><span class="name">StartPOZI Privacy Guard</span> — <span data-i18n="Protection is already active">Protection is already active</span></div>
+    <div class="ok-line"><span class="dot"></span><span data-i18n="Everything works out of the box">Everything works out of the box — no setup needed</span></div>
+
+    <div class="features">
+      <div><b data-i18n="Block ads and trackers">Block ads and trackers</b> — 113 000 <span data-i18n="rules ready">rules ready</span></div>
+      <div><b data-i18n="Auto-decline cookie banners">Auto-decline cookie banners</b></div>
+      <div><b data-i18n="Clean tracking URLs">Clean tracking URLs</b> + <b data-i18n="Fingerprint shield">Fingerprint shield</b></div>
+    </div>
+
+    <div class="buttons">
+      <a class="btn btn-accent" id="dlBrowser" href="https://startpozi.com/apps" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span data-i18n="Download StartPOZI Browser">Download StartPOZI Browser</span>
+      </a>
+      <a class="btn btn-ghost" id="openSettings" href="#">
+        <span data-i18n="Open settings">Open settings</span>
+      </a>
+    </div>
+
+    <div class="footer">StartPOZI Privacy Guard <span id="ver"></span> · <a href="https://startpozi.com" target="_blank" rel="noopener">startpozi.com</a></div>
+  </div>
+
+  <script src="i18n-ext.js"></script>
+  <script src="welcome.js"></script>
+</body>
+</html>
