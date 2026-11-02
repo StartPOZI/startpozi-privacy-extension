@@ -156,8 +156,8 @@ function chromiumManifest() {
   };
   return Buffer.from(JSON.stringify(m, null, 2));
 }
-// Opera package: Chromium flavor minus chrome_settings_overrides (Opera's
-// validator rejects the search-provider override) and minus repo-only files.
+// Opera/Edge package: Chromium flavor minus chrome_settings_overrides
+// (store validators reject the search-provider override) and minus repo files.
 function operaManifest() {
   const m = JSON.parse(chromiumManifest());
   delete m.chrome_settings_overrides;
@@ -208,9 +208,11 @@ buildFlavor('opera', operaManifest, []);
   for (const f of walk(path.join(DIST, 'opera'), '', [])) {
     files.push({ name: f.name, data: fs.readFileSync(f.path) });
   }
-  const zipPath = path.join(DIST, 'startpozi-privacy-guard-opera-v1.0.0.zip');
-  fs.writeFileSync(zipPath, zipDeflated(files));
-  console.log('✓ opera upload zip →', path.relative(ROOT, zipPath),
-    (fs.statSync(zipPath).size / 1048576).toFixed(1) + ' MB (deflated)');
+  fs.writeFileSync(path.join(DIST, 'startpozi-privacy-guard-opera-v1.0.0.zip'),
+    zipDeflated(files));
+  // Edge: тот же пакет (Chromium без подмены поиска) под своим именем
+  fs.writeFileSync(path.join(DIST, 'startpozi-privacy-guard-edge-v1.0.0.zip'),
+    zipDeflated(files));
+  console.log('✓ opera + edge upload zips (deflated)');
 })();
 console.log('done. v' + ver);
