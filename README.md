@@ -42,10 +42,15 @@ the Bing picture of the day as their background (auto-changing daily, cached).
 ### Chrome / Thorium / Edge / Opera / Vivaldi (Chromium, MV3)
 
 1. Run `node tools/build.js` once (or grab a ready `dist` zip from
-   [Releases](https://github.com/StartPOZI/startpozi-privacy-extension/releases)).
+   [Releases](https://github.com/StartPOZI/startpozi-privacy-extension/releases) —
+   there are dedicated packages for Chromium, Opera and Edge).
 2. Open `chrome://extensions` (Edge: `edge://extensions`, Opera: `opera://extensions`).
-3. Enable **Developer mode** → **Load unpacked** → select the **`dist/chromium`** folder.
+3. Enable **Developer mode** → **Load unpacked** → select the **`dist/chromium`** folder
+   (Opera/Edge upload packages ship without the search-provider override that
+   their store validators reject).
 4. Verified on real Chromium (Thorium 138): all 13 test trackers blocked, 688 DNR rules applied.
+5. Edge/Opera users can also install from the Chrome Web Store once listed there
+   (enable "Allow extensions from other stores").
 
 ### Firefox (128+)
 
@@ -142,7 +147,9 @@ node tools/make-options.js        # rebuild ui/options.html from the browser's u
 node tools/smoke.js               # offline tests: engine, DNR schema, stats, perf guard, i18n
 node tools/e2e.js                 # FULL e2e: headless Firefox + Marionette — install, engine,
                                   # real blocking, settings, popup, language, toggles
-node tools/build.js               # dist/chromium + dist/firefox + store zips (no dependencies)
+node tools/build.js               # dist/chromium + dist/firefox + dist/opera + store
+                                  # zips: chromium / firefox / opera / edge (no deps;
+                                  # edge shares the opera flavor — no search override)
 ```
 
 `tools/e2e.js` launches a real Firefox (`--headless -marionette`), installs the extension as
