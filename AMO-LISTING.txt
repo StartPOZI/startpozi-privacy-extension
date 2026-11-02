@@ -172,3 +172,25 @@ No test accounts are required — no feature depends on external logins.
 9. Ничего не отмечать про: оплату, внешний сервер для работы, сбор
    аналитики — этого нет.
 10. Тестовый логин/пароль: НЕ нужен.
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ШАГ «НУЖНО ЛИ ОТПРАВЛЯТЬ ИСХОДНЫЙ КОД?»                          │
+└─────────────────────────────────────────────────────────────────┘
+ОТВЕТ: «ДА» — у нас есть генераторы (options.html собирается
+tools/make-options.js из ui/Settings.html; офлайн-база —
+tools/gen-builtin-rules.js; пакеты — tools/build.js).
+
+Загрузить файл:
+  dist/startpozi-privacy-guard-source-v1.0.0.zip
+
+Внутри: весь исходный код + все скрипты сборки + README с пошаговой
+инструкцией воспроизведения (раздел «Building the package from source»).
+Требования там указаны: Node.js ≥ 18, без npm-зависимостей.
+
+В «Notes to reviewer» на следующем шаге ДОБАВИТЬ строку:
+Source code attached (also at github.com/StartPOZI/startpozi-privacy-extension).
+Build: Node.js ≥ 18, no dependencies — `node tools/build.js` reproduces the
+exact submitted package; generated artifacts and their generators are listed
+in README (ui/options.html ← tools/make-options.js ← ui/Settings.html,
+builtin base ← tools/gen-builtin-rules.js). All runtime code is hand-written,
+unminified and unbundled.

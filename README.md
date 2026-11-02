@@ -98,6 +98,41 @@ API can do, nothing more, nothing less.
 
 ## Build and tests
 
+### Building the package from source (reproducible)
+
+**Requirements:** Node.js ≥ 18 (any OS — Linux / macOS / Windows; only the
+bundled `node` runtime is used, there are **no npm dependencies** — do not run
+`npm install`). Internet access is needed once to download the FilterHub base
+lists; if unavailable, the committed generated files are used as-is.
+
+```bash
+# 1) (Optional — already committed) Offline base: downloads the base lists
+#    from FilterHub and generates rules/builtin.json (96k domains, static DNR
+#    ruleset) + data/builtin-blocklist.txt (113k rules for the engine).
+node tools/gen-builtin-rules.js
+
+# 2) (Optional — already committed) Settings page: generates ui/options.html
+#    from ui/Settings.html (the browser's original settings page, kept in the
+#    repo as the source; only re-run if that file changes).
+node tools/make-options.js
+
+# 3) Build the store packages: dist/chromium/ + dist/firefox/ + the two zips
+#    (the exact file submitted to AMO is dist/startpozi-privacy-guard-firefox-*.zip).
+node tools/build.js
+```
+
+What is machine-generated and by which tool (everything else ships as
+hand-written source, unminified, unbundled):
+
+| Generated artifact | Generator | Input |
+|---|---|---|
+| `ui/options.html` | `tools/make-options.js` | `ui/Settings.html` (browser's settings page) |
+| `rules/builtin.json` | `tools/gen-builtin-rules.js` | FilterHub lists + `core/catalog.js` sets |
+| `data/builtin-blocklist.txt` | `tools/gen-builtin-rules.js` | same |
+| `dist/*` flavors + zips | `tools/build.js` | the whole tree + `manifest.json` |
+
+### Tests
+
 ```bash
 node tools/gen-builtin-rules.js   # rebuild the offline base (downloads EasyList/EasyPrivacy/
                                   # NoCoin/OISD/uBO from FilterHub, cached in
