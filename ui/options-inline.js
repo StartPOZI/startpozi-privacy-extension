@@ -94,7 +94,18 @@
       'background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;' +
       'font-size:12.5px;font-weight:600;text-decoration:none;' +
       'box-shadow:0 4px 14px rgba(102,126,234,.35);';
-    dl.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>StartPOZI Browser';
+    // DOM API вместо innerHTML (требование AMO-линтера — безопасное присваивание)
+    const dlIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    ['width:14', 'height:14'].forEach(function (p) {
+      const kv = p.split(':'); dlIcon.setAttribute(kv[0], kv[1]);
+    });
+    dlIcon.setAttribute('viewBox', '0 0 24 24'); dlIcon.setAttribute('fill', 'none');
+    dlIcon.setAttribute('stroke', 'currentColor'); dlIcon.setAttribute('stroke-width', '2');
+    const dlPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    dlPath.setAttribute('d', 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z');
+    dlIcon.appendChild(dlPath);
+    dl.appendChild(dlIcon);
+    dl.appendChild(document.createTextNode('StartPOZI Browser'));
     box.appendChild(dl);
 
     nav.parentElement.insertBefore(box, nav.nextSibling);
@@ -256,10 +267,17 @@
       if (q && e.url.toLowerCase().indexOf(q) === -1 && e.host.indexOf(q) === -1) return;
       const div = document.createElement('div');
       div.style.cssText = 'font-size:11px;font-family:monospace;padding:5px 8px;border-radius:6px;';
-      div.innerHTML = '<span style="color:var(--accent-color,#667eea);font-weight:600;">' +
-        (window.i18n && window.i18n.t(e.cat) ? window.i18n.t(e.cat) : e.cat) +
-        '</span> <span style="color:var(--secondary-text);">' + e.host + '</span>' +
-        ' <span style="word-break:break-all;">' + e.url.replace(/</g, '&lt;') + '</span>';
+      // DOM API + textContent (никаких innerHTML с динамикой — политика AMO)
+      const cat = document.createElement('span');
+      cat.style.cssText = 'color:var(--accent-color,#667eea);font-weight:600;';
+      cat.textContent = (window.i18n && window.i18n.t(e.cat)) || e.cat;
+      const host = document.createElement('span');
+      host.style.cssText = 'color:var(--secondary-text);';
+      host.textContent = ' ' + e.host + ' ';
+      const url = document.createElement('span');
+      url.style.wordBreak = 'break-all';
+      url.textContent = e.url;
+      div.appendChild(cat); div.appendChild(host); div.appendChild(url);
       frag.appendChild(div);
     });
     box.appendChild(frag);
@@ -513,7 +531,12 @@
       if (!state.settings.fingerprint) recs.push('▸ ' + (window.i18n ? window.i18n.t('Identity fingerprinting protection is opt-in (like in the browser)') : 'Identity fingerprinting protection is opt-in (like in the browser)'));
       if ((state.settings.siteExceptions || []).length) recs.push('▸ ' + ((state.settings.siteExceptions || []).length) + ' ' + (window.i18n ? window.i18n.t('sites with protection paused') : 'sites with protection paused'));
       if (!recs.length) recs.push('✓ ' + (window.i18n ? window.i18n.t('Everything is configured') : 'Everything is configured'));
-      rec.innerHTML = recs.join('<br>');
+      // DOM API вместо innerHTML (политика AMO); текст — через textContent
+      rec.textContent = '';
+      recs.forEach(function (txt, i) {
+        if (i) rec.appendChild(document.createElement('br'));
+        rec.appendChild(document.createTextNode(txt));
+      });
     }
   }
 
