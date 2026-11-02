@@ -1,109 +1,296 @@
 {
-  "extName": { "message": "StartPOZI Privacy Guard" },
-  "extDescription": { "message": "Защита приватности браузера StartPOZI в любом браузере: блокировка рекламы и трекеров, авто-отклонение cookie-баннеров, чистка URL, DNT+GPC, анти-фингерпринтинг. Включает приватный поиск StartPOZI." },
-  "guard": { "message": "Privacy Guard" },
-  "settings": { "message": "Настройки" },
-  "openSearch": { "message": "Поиск StartPOZI" },
-  "noSite": { "message": "Нет сайта" },
-  "enabled": { "message": "Включено" },
-  "disabled": { "message": "Выключено" },
-  "save": { "message": "Сохранить" },
-  "clear": { "message": "Очистить" },
-  "remove": { "message": "Убрать" },
-  "help": { "message": "Справка" },
-  "donate": { "message": "Поддержать ❤️" },
-  "version": { "message": "Версия" },
-
-  "blockedHere": { "message": "заблокировано на этом сайте" },
-  "catTrackers": { "message": "Трекеры" },
-  "catAds": { "message": "Реклама" },
-  "catSocial": { "message": "Соцсети" },
-  "catCdn": { "message": "CDN" },
-  "catOther": { "message": "Прочее" },
-  "catSecurity": { "message": "Безопасность" },
-  "protectionLevel": { "message": "Уровень защиты" },
-  "presetLight": { "message": "Лёгкий" },
-  "presetMedium": { "message": "Средний" },
-  "presetFull": { "message": "Максимум" },
-  "quickToggles": { "message": "Защита" },
-  "tAdblock": { "message": "Блокировать рекламу и трекеры" },
-  "tCookies": { "message": "Авто-отклонение cookie-баннеров" },
-  "tUrlClean": { "message": "Очистка URL от трекинга" },
-  "tFpShield": { "message": "Щит фингерпринтинга" },
-  "tWebGlRtc": { "message": "Защита WebGL и WebRTC" },
-  "protectionSite": { "message": "Защита для этого сайта" },
-
-  "navSecurity": { "message": "Защита" },
-  "navBlocker": { "message": "Блокировщик" },
-  "navSearch": { "message": "Поиск" },
-  "navAbout": { "message": "О расширении" },
-  "updateLists": { "message": "Обновить списки" },
-  "updating": { "message": "Обновление…" },
-  "updated": { "message": "Обновлено ✓" },
-
-  "secTitle": { "message": "Безопасность" },
-  "secIntro": { "message": "Настройки защиты приватности и безопасности при просмотре сайтов." },
-  "dUrlClean": { "message": "Удаляет трекинг-параметры (utm_*, fbclid, gclid и т.д.) из ссылок" },
-  "dCookies": { "message": "Автоматически нажимает «Отклонить / Отказаться / Reject all» в окнах согласия на cookie и скрывает их. «Принять» никогда не нажимается" },
-  "tDnt": { "message": "Do Not Track" },
-  "dDnt": { "message": "Отправлять сайтам сигнал DNT" },
-  "tGpc": { "message": "Запретить сайтам продавать мои данные" },
-  "dGpc": { "message": "Global Privacy Control (GPC): отправляет заголовок Sec-GPC: 1 и navigator.globalPrivacyControl. Это сигнал-запрос, а не блокироватор — некоторые сайты могут его игнорировать" },
-  "tReferrer": { "message": "Политика Referrer" },
-  "dReferrer": { "message": "Отправлять только origin (без полного пути) при переходах между сайтами" },
-  "t3pCookies": { "message": "Блокировать сторонние cookie" },
-  "d3pCookies": { "message": "Вырезает Set-Cookie из ответов сторонних трекеров" },
-  "tMixed": { "message": "Блокировать смешанный контент" },
-  "dMixed": { "message": "Блокировать HTTP-ресурсы на HTTPS-страницах (mixed content)" },
-  "tHttps": { "message": "HTTPS-приоритет" },
-  "dHttps": { "message": "Обновляет навигации с HTTP до HTTPS (может сломать сайты без HTTPS)" },
-  "tPing": { "message": "Блокировать <a ping>-маячки" },
-  "dPing": { "message": "Клик-трекинг пинги не покидают браузер" },
-
-  "fpTitle": { "message": "Защита от фингерпринтинга" },
-  "fpIntro": { "message": "Сопротивление цифровому снятию отпечатков — те же защиты, что в браузере StartPOZI." },
-  "dFpShield": { "message": "Постоянный шум значений: Canvas, ЦП/ОЗУ, Battery API, sendBeacon, медиа-устройства, глубина экрана, список локальных шрифтов. Не меняет User-Agent" },
-  "tAudioFp": { "message": "Защита аудио-фингерпринта" },
-  "dAudioFp": { "message": "Добавляет неслышимый микро-шум к чтению данных Web Audio (тихие тоны, используемые для трекинга). Не влияет на воспроизведение" },
-  "tWebGL": { "message": "Блокировать WebGL-фингерпринт" },
-  "dWebGL": { "message": "Подменяет данные GPU и видеокарты для защиты от трекинга" },
-  "tWebRTC": { "message": "Защита от утечки IP через WebRTC" },
-  "dWebRTC": { "message": "Блокирует утечки WebRTC — ваш локальный IP не утечёт даже под VPN" },
-  "tIdentity": { "message": "Защита фингерпринтинга (идентичность)" },
-  "dIdentity": { "message": "Замораживает navigator.platform, нормализует языки и добавляет шум AudioContext. Опционально — как в браузере" },
-
-  "permTitle": { "message": "Разрешения сайтов" },
-  "permIntro": { "message": "Автоматически отклонять навязчивые запросы разрешений (только Chromium)." },
-  "tNotif": { "message": "Блокировать уведомления" },
-  "dNotif": { "message": "Автоматически отклонять запросы сайтов на отправку уведомлений" },
-  "tGeo": { "message": "Блокировать геолокацию" },
-  "dGeo": { "message": "Запретить сайтам доступ к вашему местоположению" },
-
-  "sitesTitle": { "message": "Исключения сайтов" },
-  "sitesIntro": { "message": "Сайты, где защита приостановлена (как пер-сайтный тумблер щита в браузере)." },
-  "noExceptions": { "message": "Исключений нет. Отключить защиту для сайта можно из попапа на панели." },
-
-  "abTitle": { "message": "Блокировщик рекламы" },
-  "fhTitle": { "message": "Списки FilterHub" },
-  "fhIntro": { "message": "Каталог блок-листов из репозитория FilterHub. Не все списки включены по умолчанию: активен рекомендуемый набор Medium." },
-  "engineStats": { "message": "Движок: %1 списков · %2 правил · %3 доменов" },
-  "savedRestartHint": { "message": "Сохранено. Перезагрузите открытые вкладки для применения." },
-  "cfTitle": { "message": "Свои фильтры" },
-  "cfIntro": { "message": "Правила в формате EasyList: ||domain.com^, ##.selector, domain.com##.ad" },
-  "csTitle": { "message": "Свои стили скрытия" },
-  "csIntro": { "message": "CSS-правила для скрытия элементов. Формат: domain { CSS } или { CSS } для всех сайтов" },
-  "logTitle": { "message": "Журнал блокировок" },
-  "tPersistLog": { "message": "Хранить журнал на диске" },
-  "dPersistLog": { "message": "По умолчанию выключено: журнал живёт только в памяти и стирается при выходе" },
-  "logSearchPh": { "message": "Фильтр по URL или домену..." },
-
-  "searchTitle": { "message": "Поиск StartPOZI" },
-  "searchIntro": { "message": "Расширение регистрирует приватный поиск StartPOZI (без телеметрии и трекинга) как поисковую систему." },
-  "trySearch": { "message": "Открыть поиск StartPOZI" },
-  "howDefault": { "message": "Как сделать основным" },
-  "guideChromium": { "message": "правый клик по адресной строке → Поисковые системы → Управление поисковыми системами → найдите StartPOZI → «Использовать по умолчанию». Chrome может запросить подтверждение при регистрации поисковика расширением — подтвердите один раз." },
-  "guideFf": { "message": "расширение автоматически делает StartPOZI поисковиком по умолчанию при установке (можно поменять в Настройки → Поиск)." },
-
-  "aboutTitle": { "message": "О расширении" },
-  "aboutText": { "message": "StartPOZI Privacy Guard приносит защиту браузера StartPOZI в любой Chromium или Firefox браузер: блокировка рекламы и трекеров по спискам FilterHub, авто-отклонение cookie-баннеров, чистка URL, DNT + GPC и анти-фингерпринтинг — всё локально, ноль телеметрии." }
+  "extName": {
+    "message": "StartPOZI Privacy Guard"
+  },
+  "extDescription": {
+    "message": "Блокировка рекламы и трекеров (113 000 правил офлайн), отклонение cookie-баннеров, чистка URL, DNT+GPC, анти-фингерпринтинг."
+  },
+  "guard": {
+    "message": "Privacy Guard"
+  },
+  "settings": {
+    "message": "Настройки"
+  },
+  "openSearch": {
+    "message": "Поиск StartPOZI"
+  },
+  "noSite": {
+    "message": "Нет сайта"
+  },
+  "enabled": {
+    "message": "Включено"
+  },
+  "disabled": {
+    "message": "Выключено"
+  },
+  "save": {
+    "message": "Сохранить"
+  },
+  "clear": {
+    "message": "Очистить"
+  },
+  "remove": {
+    "message": "Убрать"
+  },
+  "help": {
+    "message": "Справка"
+  },
+  "donate": {
+    "message": "Поддержать ❤️"
+  },
+  "version": {
+    "message": "Версия"
+  },
+  "blockedHere": {
+    "message": "заблокировано на этом сайте"
+  },
+  "catTrackers": {
+    "message": "Трекеры"
+  },
+  "catAds": {
+    "message": "Реклама"
+  },
+  "catSocial": {
+    "message": "Соцсети"
+  },
+  "catCdn": {
+    "message": "CDN"
+  },
+  "catOther": {
+    "message": "Прочее"
+  },
+  "catSecurity": {
+    "message": "Безопасность"
+  },
+  "protectionLevel": {
+    "message": "Уровень защиты"
+  },
+  "presetLight": {
+    "message": "Лёгкий"
+  },
+  "presetMedium": {
+    "message": "Средний"
+  },
+  "presetFull": {
+    "message": "Максимум"
+  },
+  "quickToggles": {
+    "message": "Защита"
+  },
+  "tAdblock": {
+    "message": "Блокировать рекламу и трекеры"
+  },
+  "tCookies": {
+    "message": "Авто-отклонение cookie-баннеров"
+  },
+  "tUrlClean": {
+    "message": "Очистка URL от трекинга"
+  },
+  "tFpShield": {
+    "message": "Щит фингерпринтинга"
+  },
+  "tWebGlRtc": {
+    "message": "Защита WebGL и WebRTC"
+  },
+  "protectionSite": {
+    "message": "Защита для этого сайта"
+  },
+  "navSecurity": {
+    "message": "Защита"
+  },
+  "navBlocker": {
+    "message": "Блокировщик"
+  },
+  "navSearch": {
+    "message": "Поиск"
+  },
+  "navAbout": {
+    "message": "О расширении"
+  },
+  "updateLists": {
+    "message": "Обновить списки"
+  },
+  "updating": {
+    "message": "Обновление…"
+  },
+  "updated": {
+    "message": "Обновлено ✓"
+  },
+  "secTitle": {
+    "message": "Безопасность"
+  },
+  "secIntro": {
+    "message": "Настройки защиты приватности и безопасности при просмотре сайтов."
+  },
+  "dUrlClean": {
+    "message": "Удаляет трекинг-параметры (utm_*, fbclid, gclid и т.д.) из ссылок"
+  },
+  "dCookies": {
+    "message": "Автоматически нажимает «Отклонить / Отказаться / Reject all» в окнах согласия на cookie и скрывает их. «Принять» никогда не нажимается"
+  },
+  "tDnt": {
+    "message": "Do Not Track"
+  },
+  "dDnt": {
+    "message": "Отправлять сайтам сигнал DNT"
+  },
+  "tGpc": {
+    "message": "Запретить сайтам продавать мои данные"
+  },
+  "dGpc": {
+    "message": "Global Privacy Control (GPC): отправляет заголовок Sec-GPC: 1 и navigator.globalPrivacyControl. Это сигнал-запрос, а не блокироватор — некоторые сайты могут его игнорировать"
+  },
+  "tReferrer": {
+    "message": "Политика Referrer"
+  },
+  "dReferrer": {
+    "message": "Отправлять только origin (без полного пути) при переходах между сайтами"
+  },
+  "t3pCookies": {
+    "message": "Блокировать сторонние cookie"
+  },
+  "d3pCookies": {
+    "message": "Вырезает Set-Cookie из ответов сторонних трекеров"
+  },
+  "tMixed": {
+    "message": "Блокировать смешанный контент"
+  },
+  "dMixed": {
+    "message": "Блокировать HTTP-ресурсы на HTTPS-страницах (mixed content)"
+  },
+  "tHttps": {
+    "message": "HTTPS-приоритет"
+  },
+  "dHttps": {
+    "message": "Обновляет навигации с HTTP до HTTPS (может сломать сайты без HTTPS)"
+  },
+  "tPing": {
+    "message": "Блокировать <a ping>-маячки"
+  },
+  "dPing": {
+    "message": "Клик-трекинг пинги не покидают браузер"
+  },
+  "fpTitle": {
+    "message": "Защита от фингерпринтинга"
+  },
+  "fpIntro": {
+    "message": "Сопротивление цифровому снятию отпечатков — те же защиты, что в браузере StartPOZI."
+  },
+  "dFpShield": {
+    "message": "Постоянный шум значений: Canvas, ЦП/ОЗУ, Battery API, sendBeacon, медиа-устройства, глубина экрана, список локальных шрифтов. Не меняет User-Agent"
+  },
+  "tAudioFp": {
+    "message": "Защита аудио-фингерпринта"
+  },
+  "dAudioFp": {
+    "message": "Добавляет неслышимый микро-шум к чтению данных Web Audio (тихие тоны, используемые для трекинга). Не влияет на воспроизведение"
+  },
+  "tWebGL": {
+    "message": "Блокировать WebGL-фингерпринт"
+  },
+  "dWebGL": {
+    "message": "Подменяет данные GPU и видеокарты для защиты от трекинга"
+  },
+  "tWebRTC": {
+    "message": "Защита от утечки IP через WebRTC"
+  },
+  "dWebRTC": {
+    "message": "Блокирует утечки WebRTC — ваш локальный IP не утечёт даже под VPN"
+  },
+  "tIdentity": {
+    "message": "Защита фингерпринтинга (идентичность)"
+  },
+  "dIdentity": {
+    "message": "Замораживает navigator.platform, нормализует языки и добавляет шум AudioContext. Опционально — как в браузере"
+  },
+  "permTitle": {
+    "message": "Разрешения сайтов"
+  },
+  "permIntro": {
+    "message": "Автоматически отклонять навязчивые запросы разрешений (только Chromium)."
+  },
+  "tNotif": {
+    "message": "Блокировать уведомления"
+  },
+  "dNotif": {
+    "message": "Автоматически отклонять запросы сайтов на отправку уведомлений"
+  },
+  "tGeo": {
+    "message": "Блокировать геолокацию"
+  },
+  "dGeo": {
+    "message": "Запретить сайтам доступ к вашему местоположению"
+  },
+  "sitesTitle": {
+    "message": "Исключения сайтов"
+  },
+  "sitesIntro": {
+    "message": "Сайты, где защита приостановлена (как пер-сайтный тумблер щита в браузере)."
+  },
+  "noExceptions": {
+    "message": "Исключений нет. Отключить защиту для сайта можно из попапа на панели."
+  },
+  "abTitle": {
+    "message": "Блокировщик рекламы"
+  },
+  "fhTitle": {
+    "message": "Списки FilterHub"
+  },
+  "fhIntro": {
+    "message": "Каталог блок-листов из репозитория FilterHub. Не все списки включены по умолчанию: активен рекомендуемый набор Medium."
+  },
+  "engineStats": {
+    "message": "Движок: %1 списков · %2 правил · %3 доменов"
+  },
+  "savedRestartHint": {
+    "message": "Сохранено. Перезагрузите открытые вкладки для применения."
+  },
+  "cfTitle": {
+    "message": "Свои фильтры"
+  },
+  "cfIntro": {
+    "message": "Правила в формате EasyList: ||domain.com^, ##.selector, domain.com##.ad"
+  },
+  "csTitle": {
+    "message": "Свои стили скрытия"
+  },
+  "csIntro": {
+    "message": "CSS-правила для скрытия элементов. Формат: domain { CSS } или { CSS } для всех сайтов"
+  },
+  "logTitle": {
+    "message": "Журнал блокировок"
+  },
+  "tPersistLog": {
+    "message": "Хранить журнал на диске"
+  },
+  "dPersistLog": {
+    "message": "По умолчанию выключено: журнал живёт только в памяти и стирается при выходе"
+  },
+  "logSearchPh": {
+    "message": "Фильтр по URL или домену..."
+  },
+  "searchTitle": {
+    "message": "Поиск StartPOZI"
+  },
+  "searchIntro": {
+    "message": "Расширение регистрирует приватный поиск StartPOZI (без телеметрии и трекинга) как поисковую систему."
+  },
+  "trySearch": {
+    "message": "Открыть поиск StartPOZI"
+  },
+  "howDefault": {
+    "message": "Как сделать основным"
+  },
+  "guideChromium": {
+    "message": "правый клик по адресной строке → Поисковые системы → Управление поисковыми системами → найдите StartPOZI → «Использовать по умолчанию». Chrome может запросить подтверждение при регистрации поисковика расширением — подтвердите один раз."
+  },
+  "guideFf": {
+    "message": "расширение автоматически делает StartPOZI поисковиком по умолчанию при установке (можно поменять в Настройки → Поиск)."
+  },
+  "aboutTitle": {
+    "message": "О расширении"
+  },
+  "aboutText": {
+    "message": "StartPOZI Privacy Guard приносит защиту браузера StartPOZI в любой Chromium или Firefox браузер: блокировка рекламы и трекеров по спискам FilterHub, авто-отклонение cookie-баннеров, чистка URL, DNT + GPC и анти-фингерпринтинг — всё локально, ноль телеметрии."
+  }
 }

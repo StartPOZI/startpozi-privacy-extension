@@ -1,109 +1,296 @@
 {
-  "extName": { "message": "StartPOZI Privacy Guard" },
-  "extDescription": { "message": "The StartPOZI Browser's privacy protection in any browser: ad & tracker blocking, cookie-banner auto-decline, URL cleaning, DNT+GPC, anti-fingerprinting. Private StartPOZI search included." },
-  "guard": { "message": "Privacy Guard" },
-  "settings": { "message": "Settings" },
-  "openSearch": { "message": "StartPOZI Search" },
-  "noSite": { "message": "No website" },
-  "enabled": { "message": "Enabled" },
-  "disabled": { "message": "Disabled" },
-  "save": { "message": "Save" },
-  "clear": { "message": "Clear" },
-  "remove": { "message": "Remove" },
-  "help": { "message": "Help" },
-  "donate": { "message": "Donate ❤️" },
-  "version": { "message": "Version" },
-
-  "blockedHere": { "message": "blocked on this site" },
-  "catTrackers": { "message": "Trackers" },
-  "catAds": { "message": "Ads" },
-  "catSocial": { "message": "Social" },
-  "catCdn": { "message": "CDN" },
-  "catOther": { "message": "Other" },
-  "catSecurity": { "message": "Security" },
-  "protectionLevel": { "message": "Protection level" },
-  "presetLight": { "message": "Light" },
-  "presetMedium": { "message": "Medium" },
-  "presetFull": { "message": "Maximum" },
-  "quickToggles": { "message": "Protection" },
-  "tAdblock": { "message": "Block ads and trackers" },
-  "tCookies": { "message": "Auto-decline cookie banners" },
-  "tUrlClean": { "message": "Clean tracking URLs" },
-  "tFpShield": { "message": "Fingerprint shield" },
-  "tWebGlRtc": { "message": "WebGL & WebRTC protection" },
-  "protectionSite": { "message": "Protection for this site" },
-
-  "navSecurity": { "message": "Protection" },
-  "navBlocker": { "message": "Ad blocker" },
-  "navSearch": { "message": "Search" },
-  "navAbout": { "message": "About" },
-  "updateLists": { "message": "Update lists" },
-  "updating": { "message": "Updating…" },
-  "updated": { "message": "Updated ✓" },
-
-  "secTitle": { "message": "Security" },
-  "secIntro": { "message": "Privacy and security protection settings while browsing sites." },
-  "dUrlClean": { "message": "Remove tracking parameters (utm_*, fbclid, gclid, etc.) from links" },
-  "dCookies": { "message": "Automatically click \"Reject / Decline / Reject all\" on cookie consent dialogs and hide them. \"Accept\" is never clicked" },
-  "tDnt": { "message": "Do Not Track" },
-  "dDnt": { "message": "Send the DNT signal to websites" },
-  "tGpc": { "message": "Tell websites not to sell or share my data" },
-  "dGpc": { "message": "Global Privacy Control (GPC): sends the Sec-GPC: 1 header and navigator.globalPrivacyControl. A request signal, not a blocker — some sites may ignore it" },
-  "tReferrer": { "message": "Referrer policy" },
-  "dReferrer": { "message": "Send only the origin (without the full path) when navigating between sites" },
-  "t3pCookies": { "message": "Block 3rd-party cookies" },
-  "d3pCookies": { "message": "Strip Set-Cookie from third-party tracker responses" },
-  "tMixed": { "message": "Block mixed content" },
-  "dMixed": { "message": "Block HTTP resources on HTTPS pages (mixed content)" },
-  "tHttps": { "message": "HTTPS-first" },
-  "dHttps": { "message": "Upgrade navigations from HTTP to HTTPS (may break HTTP-only sites)" },
-  "tPing": { "message": "Block <a ping> beacons" },
-  "dPing": { "message": "Fire-and-forget click-tracking pings never leave the browser" },
-
-  "fpTitle": { "message": "Fingerprinting protection" },
-  "fpIntro": { "message": "Resistance to browser fingerprinting — the same protections as the StartPOZI Browser." },
-  "dFpShield": { "message": "Always-on value noise: Canvas, CPU/RAM values, Battery API, sendBeacon, media devices, screen depth, local font list. Does not change your User-Agent" },
-  "tAudioFp": { "message": "Audio fingerprint protection" },
-  "dAudioFp": { "message": "Adds inaudible micro-noise to Web Audio data reads (silent tones used for tracking). Does not affect playback" },
-  "tWebGL": { "message": "Block WebGL fingerprint" },
-  "dWebGL": { "message": "Spoof GPU and graphics card info to protect against tracking" },
-  "tWebRTC": { "message": "WebRTC IP leak protection" },
-  "dWebRTC": { "message": "Blocks WebRTC leaks — your local IP cannot escape, even under VPN" },
-  "tIdentity": { "message": "Fingerprinting protection (identity)" },
-  "dIdentity": { "message": "Freezes navigator.platform, normalizes languages and adds AudioContext noise. Opt-in — like in the browser" },
-
-  "permTitle": { "message": "Site permissions" },
-  "permIntro": { "message": "Automatically deny intrusive permission prompts (Chromium only)." },
-  "tNotif": { "message": "Block notifications" },
-  "dNotif": { "message": "Automatically reject site requests to send notifications" },
-  "tGeo": { "message": "Block geolocation" },
-  "dGeo": { "message": "Deny sites access to your location" },
-
-  "sitesTitle": { "message": "Site exceptions" },
-  "sitesIntro": { "message": "Sites where all protection is paused (like the browser's per-site shield toggle)." },
-  "noExceptions": { "message": "No exceptions. Turn protection off for a site from the toolbar popup." },
-
-  "abTitle": { "message": "Ad blocker" },
-  "fhTitle": { "message": "FilterHub lists" },
-  "fhIntro": { "message": "Blocklist catalog from the FilterHub repository. Not all lists are enabled by default: the recommended Medium set is on." },
-  "engineStats": { "message": "Engine: %1 lists · %2 rules · %3 domains" },
-  "savedRestartHint": { "message": "Saved. Reload open tabs to apply." },
-  "cfTitle": { "message": "Custom filters" },
-  "cfIntro": { "message": "Rules in EasyList format: ||domain.com^, ##.selector, domain.com##.ad" },
-  "csTitle": { "message": "Custom hide styles" },
-  "csIntro": { "message": "CSS rules to hide elements on sites. Format: domain { CSS } or { CSS } for all sites" },
-  "logTitle": { "message": "Blocked log" },
-  "tPersistLog": { "message": "Keep log on disk" },
-  "dPersistLog": { "message": "Off by default: the log lives in memory only and is wiped on exit" },
-  "logSearchPh": { "message": "Filter by URL or domain..." },
-
-  "searchTitle": { "message": "StartPOZI Search" },
-  "searchIntro": { "message": "The extension registers the private StartPOZI search (no telemetry, no tracking) as a search engine." },
-  "trySearch": { "message": "Try StartPOZI Search" },
-  "howDefault": { "message": "How to make it default" },
-  "guideChromium": { "message": "right-click the address bar → Search engines → Manage search engines → find StartPOZI → \"Make default\". Chrome may ask for confirmation when an extension registers a search engine — confirm once." },
-  "guideFf": { "message": "the extension sets StartPOZI as the default search engine automatically during installation (can be changed in Settings → Search)." },
-
-  "aboutTitle": { "message": "About" },
-  "aboutText": { "message": "StartPOZI Privacy Guard brings the StartPOZI Browser's protection to any Chromium or Firefox browser: ad & tracker blocking with FilterHub lists, automatic cookie-banner rejection, URL cleaning, DNT + GPC, and anti-fingerprinting — all local, zero telemetry." }
+  "extName": {
+    "message": "StartPOZI Privacy Guard"
+  },
+  "extDescription": {
+    "message": "Ad & tracker blocking (113k rules offline), cookie-banner auto-decline, URL cleanup, DNT+GPC, anti-fingerprinting."
+  },
+  "guard": {
+    "message": "Privacy Guard"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "openSearch": {
+    "message": "StartPOZI Search"
+  },
+  "noSite": {
+    "message": "No website"
+  },
+  "enabled": {
+    "message": "Enabled"
+  },
+  "disabled": {
+    "message": "Disabled"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "clear": {
+    "message": "Clear"
+  },
+  "remove": {
+    "message": "Remove"
+  },
+  "help": {
+    "message": "Help"
+  },
+  "donate": {
+    "message": "Donate ❤️"
+  },
+  "version": {
+    "message": "Version"
+  },
+  "blockedHere": {
+    "message": "blocked on this site"
+  },
+  "catTrackers": {
+    "message": "Trackers"
+  },
+  "catAds": {
+    "message": "Ads"
+  },
+  "catSocial": {
+    "message": "Social"
+  },
+  "catCdn": {
+    "message": "CDN"
+  },
+  "catOther": {
+    "message": "Other"
+  },
+  "catSecurity": {
+    "message": "Security"
+  },
+  "protectionLevel": {
+    "message": "Protection level"
+  },
+  "presetLight": {
+    "message": "Light"
+  },
+  "presetMedium": {
+    "message": "Medium"
+  },
+  "presetFull": {
+    "message": "Maximum"
+  },
+  "quickToggles": {
+    "message": "Protection"
+  },
+  "tAdblock": {
+    "message": "Block ads and trackers"
+  },
+  "tCookies": {
+    "message": "Auto-decline cookie banners"
+  },
+  "tUrlClean": {
+    "message": "Clean tracking URLs"
+  },
+  "tFpShield": {
+    "message": "Fingerprint shield"
+  },
+  "tWebGlRtc": {
+    "message": "WebGL & WebRTC protection"
+  },
+  "protectionSite": {
+    "message": "Protection for this site"
+  },
+  "navSecurity": {
+    "message": "Protection"
+  },
+  "navBlocker": {
+    "message": "Ad blocker"
+  },
+  "navSearch": {
+    "message": "Search"
+  },
+  "navAbout": {
+    "message": "About"
+  },
+  "updateLists": {
+    "message": "Update lists"
+  },
+  "updating": {
+    "message": "Updating…"
+  },
+  "updated": {
+    "message": "Updated ✓"
+  },
+  "secTitle": {
+    "message": "Security"
+  },
+  "secIntro": {
+    "message": "Privacy and security protection settings while browsing sites."
+  },
+  "dUrlClean": {
+    "message": "Remove tracking parameters (utm_*, fbclid, gclid, etc.) from links"
+  },
+  "dCookies": {
+    "message": "Automatically click \"Reject / Decline / Reject all\" on cookie consent dialogs and hide them. \"Accept\" is never clicked"
+  },
+  "tDnt": {
+    "message": "Do Not Track"
+  },
+  "dDnt": {
+    "message": "Send the DNT signal to websites"
+  },
+  "tGpc": {
+    "message": "Tell websites not to sell or share my data"
+  },
+  "dGpc": {
+    "message": "Global Privacy Control (GPC): sends the Sec-GPC: 1 header and navigator.globalPrivacyControl. A request signal, not a blocker — some sites may ignore it"
+  },
+  "tReferrer": {
+    "message": "Referrer policy"
+  },
+  "dReferrer": {
+    "message": "Send only the origin (without the full path) when navigating between sites"
+  },
+  "t3pCookies": {
+    "message": "Block 3rd-party cookies"
+  },
+  "d3pCookies": {
+    "message": "Strip Set-Cookie from third-party tracker responses"
+  },
+  "tMixed": {
+    "message": "Block mixed content"
+  },
+  "dMixed": {
+    "message": "Block HTTP resources on HTTPS pages (mixed content)"
+  },
+  "tHttps": {
+    "message": "HTTPS-first"
+  },
+  "dHttps": {
+    "message": "Upgrade navigations from HTTP to HTTPS (may break HTTP-only sites)"
+  },
+  "tPing": {
+    "message": "Block <a ping> beacons"
+  },
+  "dPing": {
+    "message": "Fire-and-forget click-tracking pings never leave the browser"
+  },
+  "fpTitle": {
+    "message": "Fingerprinting protection"
+  },
+  "fpIntro": {
+    "message": "Resistance to browser fingerprinting — the same protections as the StartPOZI Browser."
+  },
+  "dFpShield": {
+    "message": "Always-on value noise: Canvas, CPU/RAM values, Battery API, sendBeacon, media devices, screen depth, local font list. Does not change your User-Agent"
+  },
+  "tAudioFp": {
+    "message": "Audio fingerprint protection"
+  },
+  "dAudioFp": {
+    "message": "Adds inaudible micro-noise to Web Audio data reads (silent tones used for tracking). Does not affect playback"
+  },
+  "tWebGL": {
+    "message": "Block WebGL fingerprint"
+  },
+  "dWebGL": {
+    "message": "Spoof GPU and graphics card info to protect against tracking"
+  },
+  "tWebRTC": {
+    "message": "WebRTC IP leak protection"
+  },
+  "dWebRTC": {
+    "message": "Blocks WebRTC leaks — your local IP cannot escape, even under VPN"
+  },
+  "tIdentity": {
+    "message": "Fingerprinting protection (identity)"
+  },
+  "dIdentity": {
+    "message": "Freezes navigator.platform, normalizes languages and adds AudioContext noise. Opt-in — like in the browser"
+  },
+  "permTitle": {
+    "message": "Site permissions"
+  },
+  "permIntro": {
+    "message": "Automatically deny intrusive permission prompts (Chromium only)."
+  },
+  "tNotif": {
+    "message": "Block notifications"
+  },
+  "dNotif": {
+    "message": "Automatically reject site requests to send notifications"
+  },
+  "tGeo": {
+    "message": "Block geolocation"
+  },
+  "dGeo": {
+    "message": "Deny sites access to your location"
+  },
+  "sitesTitle": {
+    "message": "Site exceptions"
+  },
+  "sitesIntro": {
+    "message": "Sites where all protection is paused (like the browser's per-site shield toggle)."
+  },
+  "noExceptions": {
+    "message": "No exceptions. Turn protection off for a site from the toolbar popup."
+  },
+  "abTitle": {
+    "message": "Ad blocker"
+  },
+  "fhTitle": {
+    "message": "FilterHub lists"
+  },
+  "fhIntro": {
+    "message": "Blocklist catalog from the FilterHub repository. Not all lists are enabled by default: the recommended Medium set is on."
+  },
+  "engineStats": {
+    "message": "Engine: %1 lists · %2 rules · %3 domains"
+  },
+  "savedRestartHint": {
+    "message": "Saved. Reload open tabs to apply."
+  },
+  "cfTitle": {
+    "message": "Custom filters"
+  },
+  "cfIntro": {
+    "message": "Rules in EasyList format: ||domain.com^, ##.selector, domain.com##.ad"
+  },
+  "csTitle": {
+    "message": "Custom hide styles"
+  },
+  "csIntro": {
+    "message": "CSS rules to hide elements on sites. Format: domain { CSS } or { CSS } for all sites"
+  },
+  "logTitle": {
+    "message": "Blocked log"
+  },
+  "tPersistLog": {
+    "message": "Keep log on disk"
+  },
+  "dPersistLog": {
+    "message": "Off by default: the log lives in memory only and is wiped on exit"
+  },
+  "logSearchPh": {
+    "message": "Filter by URL or domain..."
+  },
+  "searchTitle": {
+    "message": "StartPOZI Search"
+  },
+  "searchIntro": {
+    "message": "The extension registers the private StartPOZI search (no telemetry, no tracking) as a search engine."
+  },
+  "trySearch": {
+    "message": "Try StartPOZI Search"
+  },
+  "howDefault": {
+    "message": "How to make it default"
+  },
+  "guideChromium": {
+    "message": "right-click the address bar → Search engines → Manage search engines → find StartPOZI → \"Make default\". Chrome may ask for confirmation when an extension registers a search engine — confirm once."
+  },
+  "guideFf": {
+    "message": "the extension sets StartPOZI as the default search engine automatically during installation (can be changed in Settings → Search)."
+  },
+  "aboutTitle": {
+    "message": "About"
+  },
+  "aboutText": {
+    "message": "StartPOZI Privacy Guard brings the StartPOZI Browser's protection to any Chromium or Firefox browser: ad & tracker blocking with FilterHub lists, automatic cookie-banner rejection, URL cleaning, DNT + GPC, and anti-fingerprinting — all local, zero telemetry."
+  }
 }
