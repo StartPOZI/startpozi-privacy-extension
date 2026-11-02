@@ -1,0 +1,80 @@
+# Тексты для публикации на AMO (addons.mozilla.org)
+# Готово к копипасту. Заполняется на https://addons.mozilla.org/developers/addon/submit/
+
+## ── Шаг «Listing» ──────────────────────────────────────────────
+
+### Name (EN)
+StartPOZI Privacy Guard
+
+### Summary (EN, до 250 знаков)
+Ad & tracker blocker, automatic cookie-banner rejection, URL tracking cleanup,
+DNT + Global Privacy Control and anti-fingerprinting — the full privacy stack of
+StartPOZI Browser in one extension.
+
+### Description (EN)
+The privacy protection of StartPOZI Browser, brought to Firefox.
+
+★ AD & TRACKER BLOCKER
+14 curated FilterHub lists (EasyList, EasyPrivacy, the uBlock core, Peter Lowe,
+NoCoin, OISD, URLhaus…) with Light / Medium / Maximum presets and custom filters
+in EasyList format. A built-in offline base of 113,000 rules starts blocking from
+the very first second — before any list is even downloaded.
+
+★ AUTOMATIC COOKIE-BANNER REJECTION
+~70 CMP providers, shadow DOM support, multilingual heuristics — banners are
+dismissed without ever clicking "Accept".
+
+★ URL TRACKING CLEANUP
+Strips utm_*, fbclid, gclid, msclkid and dozens of other tracking parameters at
+the network level and in the visible address.
+
+★ DNT + GLOBAL PRIVACY CONTROL
+Sends DNT and Sec-GPC: 1 headers on every request and exposes
+navigator.globalPrivacyControl — the complete GPC opt-out.
+
+★ ANTI-FINGERPRINTING
+Canvas noise, WebGL masking, audio farbling, WebRTC IP-leak blocking, media
+device and font masking — ported from StartPOZI Browser.
+
+★ MORE
+Third-party cookie stripping, referrer trimmed to origin, <a ping>/beacon
+blocking, an element zapper ("Block ads manually"), per-site protection toggle,
+a shield popup with live per-site stats, and settings styled after the browser.
+StartPOZI becomes your default search engine.
+
+Privacy: no telemetry, no analytics, no data sent anywhere. Everything stays in
+your browser. External requests are limited to filter-list updates (GitHub),
+the daily Bing picture of the day, and startpozi.com search.
+
+## ── Те же поля на русском (вкладка RU) ─────────────────────────
+Имя: StartPOZI Privacy Guard
+Кратко: Блокировщик рекламы и трекеров, автоотклонение cookie-баннеров, чистка
+URL от трекинга, DNT + Global Privacy Control и анти-фингерпринтинг — вся
+защита браузера StartPOZI в одном расширении.
+Описание: переведите EN-текст выше (или скопируйте из README раздел «Что входит»).
+
+## ── Шаг «License» ──────────────────────────────────────────────
+GNU General Public License v3.0 (выбрать из списка / файл уже в пакете)
+
+## ── Вопросник о данных (Data Collection Disclosure) ────────────
+На все вопросы «собирает ли расширение…» — ответ НЕТ (не собирает):
+- Does it collect technical data? → No
+- Does it collect interaction data? → No
+- Does it collect personally identifying data? → No
+- Does it use third-party services? → Yes (только загрузка публичных данных):
+  • raw.githubusercontent.com — обновление списков фильтров
+  • www.bing.com — картинка дня для фона настроек
+  • startpozi.com — поисковая система (только при поиске)
+  Ни на один из них НЕ отправляются данные пользователя.
+
+## ── Reviewer notes (заметки ревьюеру, EN) ──────────────────────
+This add-on is a port of the privacy stack from our open-source browser
+(github.com/StartPOZI/StartPOZI-Desktop-Browser, GPL-3.0). Permissions:
+webRequest/webRequestBlocking — request blocking and header injection
+(DNT, Sec-GPC, Referrer) exactly as in the browser; cookies — cookie counter
+in the popup; browsingData — the optional "clear cookies/cache on exit"
+setting; tabs — per-tab shield stats and badge. No remote code is executed;
+the CSP on extension pages forbids it. Source: this repository.
+
+## ── Файл для загрузки ──────────────────────────────────────────
+dist/startpozi-privacy-guard-firefox-v1.0.0.zip
