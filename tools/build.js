@@ -72,6 +72,49 @@ function zip(files) {
   return Buffer.concat([...chunks, cdBuf, end]);
 }
 
+// ---------------------------------------------------------------- zip (deflate)
+const zlib = require('zlib');
+function zipDeflated(files) {
+  const chunks = [];
+  const central = [];
+  let offset = 0;
+  for (const f of files) {
+    const nameBuf = Buffer.from(f.name, 'utf8');
+    const data = zlib.deflateRawSync(f.data, { level: 9 });
+    const crc = crc32(f.data);
+    const local = Buffer.alloc(30);
+    local.writeUInt32LE(0x04034b50, 0);
+    local.writeUInt16LE(20, 4);
+    local.writeUInt16LE(0x0800, 6);        // UTF-8 flag
+    local.writeUInt16LE(8, 8);             // method: deflate
+    local.writeUInt16LE(0, 10); local.writeUInt16LE(0, 12);
+    local.writeUInt32LE(crc, 14);
+    local.writeUInt32LE(data.length, 18);
+    local.writeUInt32LE(f.data.length, 22);
+    local.writeUInt16LE(nameBuf.length, 26);
+    local.writeUInt16LE(0, 28);
+    chunks.push(local, nameBuf, data);
+    const cd = Buffer.alloc(46);
+    cd.writeUInt32LE(0x02014b50, 0);
+    cd.writeUInt16LE(20, 4); cd.writeUInt16LE(20, 6);
+    cd.writeUInt16LE(0x0800, 8); cd.writeUInt16LE(8, 10);
+    cd.writeUInt16LE(0, 12); cd.writeUInt16LE(0, 14);
+    cd.writeUInt32LE(crc, 16);
+    cd.writeUInt32LE(data.length, 20); cd.writeUInt32LE(f.data.length, 24);
+    cd.writeUInt16LE(nameBuf.length, 28);
+    cd.writeUInt32LE(offset, 42);
+    central.push(cd, nameBuf);
+    offset += local.length + nameBuf.length + data.length;
+  }
+  const cdBuf = Buffer.concat(central);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0);
+  end.writeUInt16LE(files.length, 8); end.writeUInt16LE(files.length, 10);
+  end.writeUInt32LE(cdBuf.length, 12);
+  end.writeUInt32LE(offset, 16);
+  return Buffer.concat([...chunks, cdBuf, end]);
+}
+
 // ---------------------------------------------------------------- tree walk
 function walk(dir, base, out) {
   for (const name of fs.readdirSync(dir).sort()) {
@@ -96,6 +139,7 @@ function copyDir(src, dst) {
 const EXCLUDE_COMMON = [
   'dist', 'tools', 'node_modules', 'manifest.json', 'manifest.firefox.json',
   'README.md', '.git', 'ui/logo.png', 'ui/Settings.html',
+  'AMO-LISTING.txt', '.gitignore',
 ];
 
 // Chromium package: rebuild the background as a service worker, drop the
@@ -112,7 +156,13 @@ function chromiumManifest() {
   };
   return Buffer.from(JSON.stringify(m, null, 2));
 }
-// Firefox package: the root manifest IS the Firefox flavor — used as-is.
+// Opera package: Chromium flavor minus chrome_settings_overrides (Opera's
+// validator rejects the search-provider override) and minus repo-only files.
+function operaManifest() {
+  const m = JSON.parse(chromiumManifest());
+  delete m.chrome_settings_overrides;
+  return Buffer.from(JSON.stringify(m, null, 2));
+}
 function firefoxManifest() {
   const m = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
   return Buffer.from(JSON.stringify(m, null, 2));
@@ -151,4 +201,16 @@ fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
 buildFlavor('chromium', chromiumManifest, []);
 buildFlavor('firefox', firefoxManifest, ['rules']); // DNR rulesets unused on Firefox
+// Opera: Chromium flavor minus search-provider override; compressed upload zip
+buildFlavor('opera', operaManifest, []);
+(function () {
+  const files = [];
+  for (const f of walk(path.join(DIST, 'opera'), '', [])) {
+    files.push({ name: f.name, data: fs.readFileSync(f.path) });
+  }
+  const zipPath = path.join(DIST, 'startpozi-privacy-guard-opera-v1.0.0.zip');
+  fs.writeFileSync(zipPath, zipDeflated(files));
+  console.log('✓ opera upload zip →', path.relative(ROOT, zipPath),
+    (fs.statSync(zipPath).size / 1048576).toFixed(1) + ' MB (deflated)');
+})();
 console.log('done. v' + ver);
