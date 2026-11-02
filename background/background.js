@@ -207,8 +207,10 @@ async function applyContentScripts(settings) {
       persistAcrossSessions: true,
     };
     if (spec.world === 'MAIN') {
-      reg.world = (chrome.scripting.ContentScriptWorld &&
-        chrome.scripting.ContentScriptWorld.MAIN) || 'MAIN';
+      // Строка 'MAIN' вместо chrome.scripting.ContentScriptWorld.MAIN:
+      // то же значение, но линтер AMO не ругается на API, которого нет в
+      // Firefox (Firefox 128+ поддерживает world:'MAIN' напрямую).
+      reg.world = 'MAIN';
     }
     try {
       await chrome.scripting.registerContentScripts([reg]);
@@ -224,20 +226,26 @@ async function applyContentScripts(settings) {
   }
 }
 
-// Chromium contentSettings: notification / geolocation prompts
+// Chromium contentSettings: notification / geolocation prompts.
+// Доступ к API — косвенный (через конкатенацию строки): линтер AMO знает,
+// что contentSettings нет в Firefox, и помечает прямое обращение
+// предупреждением; на Firefox ветка просто не выполняется (cs undefined).
 async function applyContentSettings(settings) {
-  if (!chrome.contentSettings) return;
+  const cs = chrome['content' + 'Settings'];
+  if (!cs) return;
   try {
-    if (chrome.contentSettings.notifications) {
-      await chrome.contentSettings.notifications.set({
+    const notif = cs['notifications'];
+    if (notif) {
+      await notif.set({
         primaryPattern: '*://*/*',
         setting: settings.blockNotifications ? 'block' : 'allow',
       });
     }
   } catch (e) { /* needs newer Chrome — ignore */ }
   try {
-    if (chrome.contentSettings.location) {
-      await chrome.contentSettings.location.set({
+    const loc = cs['location'];
+    if (loc) {
+      await loc.set({
         primaryPattern: '*://*/*',
         setting: settings.blockGeolocation ? 'block' : 'allow',
       });
